@@ -19,7 +19,10 @@ import {MatButton} from '@angular/material/button';
     MatCard,
   ],
   templateUrl: 'login-card.component.html',
-  styleUrl: 'login-card.component.css'
+  styleUrls: [
+    'login-card.component.css',
+    '../../../../styles/auth/shared-styles.css'
+  ]
 })
 export class LoginCardComponent implements OnInit {
   loginForm!: FormGroup;

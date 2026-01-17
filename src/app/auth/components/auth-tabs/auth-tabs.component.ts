@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {MatTab, MatTabGroup} from '@angular/material/tabs';
-import {LoginCardComponent} from '../login-card/login-card.component';
-import {RegisterCardComponent} from '../register-card/register-card.component';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { LoginCardComponent } from '../login-card/login-card.component';
+import { RegisterCardComponent } from '../register-card/register-card.component';
 import { mock_users } from '../../models/user.model';
 
 @Component({
@@ -13,10 +13,10 @@ import { mock_users } from '../../models/user.model';
     MatTabGroup,
     MatTab,
     LoginCardComponent,
-    RegisterCardComponent
+    RegisterCardComponent,
   ],
   templateUrl: 'auth-tabs.component.html',
-  styleUrl: 'auth-tabs.component.css'
+  styleUrls: ['auth-tabs.component.css']
 })
 export class AuthTabsComponent implements OnInit {
 
