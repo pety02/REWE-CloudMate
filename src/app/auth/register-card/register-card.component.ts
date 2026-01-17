@@ -6,6 +6,7 @@ import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-register-card',
+  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatCardTitle,
