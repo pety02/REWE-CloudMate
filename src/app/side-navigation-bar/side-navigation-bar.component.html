@@ -1,0 +1,16 @@
+<mat-drawer-container class="mat-drawer-container" autosize>
+  <mat-drawer #drawer mode="push" class="mat-drawer-sidenav">
+    <div class="menu">
+      <button mat-flat-button>Home</button>
+      <button mat-flat-button>Shared</button>
+      <button mat-flat-button>Upload</button>
+    </div>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Open Sidenav Menu
+    </button>
+  </div>
+
+</mat-drawer-container>
