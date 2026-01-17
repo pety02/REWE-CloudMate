@@ -15,8 +15,8 @@ import { mock_users } from '../../models/user.model';
     LoginCardComponent,
     RegisterCardComponent
   ],
-  templateUrl: './auth-tabs.component.html',
-  styleUrl: './auth-tabs.component.css'
+  templateUrl: 'auth-tabs.component.html',
+  styleUrl: 'auth-tabs.component.css'
 })
 export class AuthTabsComponent implements OnInit {
 

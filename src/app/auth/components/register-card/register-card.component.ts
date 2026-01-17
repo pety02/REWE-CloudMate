@@ -1,13 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../auth.service';
+import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
+import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-register-card',
   standalone: true,
   imports: [
+    MatCardTitle,
+    MatCardContent,
+    ReactiveFormsModule,
+    MatLabel,
+    MatInput,
+    MatButton,
+    MatFormField,
+    MatCard
   ],
-  templateUrl: './register-card.component.html',
+  templateUrl: 'register-card.component.html',
+  styleUrl: 'register-card.component.css'
 })
 export class RegisterCardComponent implements OnInit {
   registerForm!: FormGroup;

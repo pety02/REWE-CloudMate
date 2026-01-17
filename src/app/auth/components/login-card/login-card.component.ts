@@ -1,13 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../auth.service';
+import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
+import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-login-card',
   standalone: true,
   imports: [
+    MatCardTitle,
+    MatCardContent,
+    ReactiveFormsModule,
+    MatLabel,
+    MatFormField,
+    MatInput,
+    MatButton,
+    MatCard,
   ],
-  templateUrl: './login-card.component.html',
+  templateUrl: 'login-card.component.html',
+  styleUrl: 'login-card.component.css'
 })
 export class LoginCardComponent implements OnInit {
   loginForm!: FormGroup;
