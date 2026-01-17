@@ -1,3 +1,6 @@
 import { Routes } from '@angular/router';
+import {AuthTabsComponent} from './auth/auth-tabs/auth-tabs.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: "", component: AuthTabsComponent }
+];
