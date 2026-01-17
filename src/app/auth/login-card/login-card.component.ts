@@ -19,7 +19,10 @@ import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
     MatCardContent,
   ],
   templateUrl: './login-card.component.html',
-  styleUrl: './login-card.component.css'
+  styleUrls: [
+    './login-card.component.css',
+    '../../../styles/auth/shared-styles.css'
+  ]
 })
 export class LoginCardComponent {
   loginForm: FormGroup<{
