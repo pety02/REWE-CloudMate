@@ -1,33 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
-import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
-import {MatButton} from '@angular/material/button';
-import {User} from '../../models/user.model';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AuthService} from '../../auth.service';
 
 @Component({
   selector: 'app-register-card',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    MatCardTitle,
-    MatCardContent,
-    MatLabel,
-    MatFormField,
-    MatInput,
-    MatButton,
-    MatCard
   ],
   templateUrl: './register-card.component.html',
-  styleUrls: [
-    './register-card.component.css',
-    '../../../../styles/auth/shared-styles.css'
-  ]
 })
 export class RegisterCardComponent implements OnInit {
   registerForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -35,18 +20,6 @@ export class RegisterCardComponent implements OnInit {
       password: ['', Validators.required],
       confirmedPassword: ['', Validators.required],
     });
-  }
-
-  registerUser(user: User): boolean {
-    const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
-
-    if (users.some(u => u.username === user.username)) {
-      return false;
-    }
-
-    users.push(user);
-    localStorage.setItem('users', JSON.stringify(users));
-    return true;
   }
 
   register(): void {
@@ -62,7 +35,7 @@ export class RegisterCardComponent implements OnInit {
       return;
     }
 
-    const success = this.registerUser({ username, password });
+    const success = this.auth.register({ username, password });
 
     if (!success) {
       alert('Username already exists');
