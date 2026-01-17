@@ -17,7 +17,10 @@ import {MatButton} from '@angular/material/button';
     MatCard
   ],
   templateUrl: './register-card.component.html',
-  styleUrl: './register-card.component.css'
+  styleUrls: [
+    './register-card.component.css',
+    '../../../styles/auth/shared-styles.css'
+  ]
 })
 export class RegisterCardComponent {
   registerForm: FormGroup<{
