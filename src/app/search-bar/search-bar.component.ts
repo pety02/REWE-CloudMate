@@ -4,6 +4,7 @@ import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-search-bar',
+  standalone: true,
   imports: [
     MatFormField,
     MatPrefix,
