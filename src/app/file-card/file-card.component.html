@@ -1,0 +1,45 @@
+<mat-card class="file-card">
+  <mat-card-header>
+    <mat-card-title class="file-title">
+      {{ file.name }}.{{ file.extension }}
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="file-preview">
+    <div class="file-actions">
+      <button mat-icon-button aria-label="Preview" (click)="onPreview(file)">
+        <mat-icon>visibility</mat-icon>
+      </button>
+
+      <button mat-icon-button aria-label="Update" (click)="onUpdate(file)">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button aria-label="Delete" (click)="onDelete(file)">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <button mat-icon-button aria-label="Share" (click)="onShare(file)">
+        <mat-icon>share</mat-icon>
+      </button>
+    </div>
+
+    @if (isImage(file.extension)) {
+      <img
+        [src]="file.url"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else {
+      <mat-icon class="file-icon">
+        {{ getFileIcon(file.extension) }}
+      </mat-icon>
+    }
+  </mat-card-content>
+
+  <mat-card-footer class="file-footer">
+    <span class="footer-right-span">
+      {{ file.size | fileSize }}
+    </span>
+  </mat-card-footer>
+</mat-card>
