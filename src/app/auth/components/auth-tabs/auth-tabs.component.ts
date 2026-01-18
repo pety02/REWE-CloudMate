@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { LoginCardComponent } from '../login-card/login-card.component';
 import { RegisterCardComponent } from '../register-card/register-card.component';
-import { mock_users } from '../../models/user.model';
+import {AuthService} from '../../auth.service';
 
 @Component({
   selector: 'app-auth-tabs',
@@ -20,6 +20,9 @@ import { mock_users } from '../../models/user.model';
 })
 export class AuthTabsComponent implements OnInit {
 
+  constructor(private authService: AuthService) {
+  }
+
   ngOnInit(): void {
     this.initializeUsers();
   }
@@ -27,7 +30,7 @@ export class AuthTabsComponent implements OnInit {
   initializeUsers(): void {
     const users = localStorage.getItem('users');
     if (!users) {
-      localStorage.setItem('users', JSON.stringify(mock_users));
+      localStorage.setItem('users', JSON.stringify(this.authService.getUsers()));
     }
   }
 }
