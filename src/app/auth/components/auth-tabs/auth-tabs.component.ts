@@ -19,6 +19,11 @@ import {AuthService} from '../../auth.service';
   styleUrls: ['auth-tabs.component.css']
 })
 export class AuthTabsComponent implements OnInit {
+  selectedTabIndex = 0;
+
+  goToLogin(): void {
+    this.selectedTabIndex = 0;
+  }
 
   constructor(private authService: AuthService) {
   }

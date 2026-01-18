@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../auth.service';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
@@ -26,6 +26,7 @@ import {MatButton} from '@angular/material/button';
 })
 export class RegisterCardComponent implements OnInit {
   registerForm!: FormGroup;
+  @Output() registered = new EventEmitter<void>();
 
   constructor(private fb: FormBuilder, private auth: AuthService) {}
 
@@ -57,7 +58,9 @@ export class RegisterCardComponent implements OnInit {
       return;
     }
 
-    alert('User registered successfully!');
+    (document.activeElement as HTMLElement)?.blur();
+
     this.registerForm.reset();
+    this.registered.emit();
   }
 }
