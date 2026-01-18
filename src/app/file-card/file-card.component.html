@@ -26,14 +26,40 @@
 
     @if (isImage(file.extension)) {
       <img
-        [src]="file.url"
+        src="/image.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === '.docx') {
+      <img
+        src="/docx.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === '.pptx') {
+      <img
+        src="/pptx.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === '.pdf') {
+      <img
+        src="/pdf.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === '.xlsx') {
+      <img
+        src="/xlsx.ico"
         alt="File preview"
         class="preview-image"
       />
     } @else {
-      <mat-icon class="file-icon">
-        {{ getFileIcon(file.extension) }}
-      </mat-icon>
+      <img
+        src="/unknown.ico"
+        alt="File preview"
+        class="preview-image"
+      />
     }
   </mat-card-content>
 
