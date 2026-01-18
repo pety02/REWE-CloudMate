@@ -44,7 +44,8 @@ export class FileCardComponent {
   }
 
   onPreview(file: FileItem): void {
-    console.log('Preview', file);
+    console.log(file.content);
+    localStorage.setItem("currentFileContent", file.content || '');
   }
 
   onUpdate(file: FileItem): void {
