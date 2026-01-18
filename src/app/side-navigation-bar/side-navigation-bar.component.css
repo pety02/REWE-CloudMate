@@ -1,8 +1,21 @@
 .mat-drawer-container {
-  width: 400px;
   height: 686px;
   border: 1px solid rgba(0, 0, 0, 0.5);
+  transition: width 160ms;
 }
+
+.box1{
+  width: 4rem;
+}
+
+.mat-drawer-container, .mat-drawer-sidenav{
+  width: 4rem;
+}
+
+.mat-drawer-container.mat-drawer-container-has-open, .mat-drawer-container-has-open > .mat-drawer-sidenav{
+  width: 24rem;
+}
+
 
 .sidenav-content {
   display: flex;
