@@ -1,4 +1,7 @@
-<mat-card class="file-card">
+<mat-card class="file-card"
+          [matTooltip]="'Created At: ' + (file.createDate | date) + '\nUpdated At: ' + (file.updateDate | date)"
+          matTooltipPosition="above"
+>
   <mat-card-header>
     <mat-card-title class="file-title">
       {{ file.name }}.{{ file.extension }}
@@ -30,27 +33,81 @@
         alt="File preview"
         class="preview-image"
       />
-    } @else if (file.extension === '.docx') {
+    } @else if (file.extension === 'docx') {
       <img
         src="/docx.ico"
         alt="File preview"
         class="preview-image"
       />
-    } @else if (file.extension === '.pptx') {
+    } @else if (file.extension === 'pptx') {
       <img
         src="/pptx.ico"
         alt="File preview"
         class="preview-image"
       />
-    } @else if (file.extension === '.pdf') {
+    } @else if (file.extension === 'pdf') {
       <img
         src="/pdf.ico"
         alt="File preview"
         class="preview-image"
       />
-    } @else if (file.extension === '.xlsx') {
+    } @else if (file.extension === 'xlsx') {
       <img
         src="/xlsx.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === 'css') {
+      <img
+        src="/css.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === 'html') {
+      <img
+        src="/html.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === 'java') {
+      <img
+        src="/java.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === 'js') {
+      <img
+        src="/js.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === 'json') {
+      <img
+        src="/json.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === 'log') {
+      <img
+        src="/log.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === 'sql') {
+      <img
+        src="/sql.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === 'txt') {
+      <img
+        src="/txt.ico"
+        alt="File preview"
+        class="preview-image"
+      />
+    } @else if (file.extension === 'zip') {
+      <img
+        src="/zip.ico"
         alt="File preview"
         class="preview-image"
       />

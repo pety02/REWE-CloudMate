@@ -4,6 +4,8 @@ import {MatIconButton} from '@angular/material/button';
 import {FileItem} from './models/file-item.model';
 import {MatIcon} from '@angular/material/icon';
 import {FileSizePipe} from './pipes/file-size.pipe';
+import {MatTooltip} from '@angular/material/tooltip';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-file-card',
@@ -16,7 +18,9 @@ import {FileSizePipe} from './pipes/file-size.pipe';
     MatCardTitle,
     MatIcon,
     MatIconButton,
-    FileSizePipe
+    FileSizePipe,
+    MatTooltip,
+    DatePipe,
   ],
   templateUrl: './file-card.component.html',
   styleUrl: './file-card.component.css'
