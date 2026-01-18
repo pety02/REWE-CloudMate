@@ -1,0 +1,38 @@
+<div class="sort-container">
+  <mat-button-toggle-group
+    appearance="standard"
+    [value]="activeSort"
+    (change)="onSortChange($event)"
+    exclusive
+  >
+    <mat-button-toggle value="title">
+      Title
+      <mat-icon>{{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+    </mat-button-toggle>
+
+    <mat-button-toggle value="size">
+      Size
+      <mat-icon>{{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+    </mat-button-toggle>
+
+    <mat-button-toggle value="createdAt">
+      Created
+      <mat-icon>{{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+    </mat-button-toggle>
+
+    <mat-button-toggle value="updatedAt">
+      Updated
+      <mat-icon>{{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <button
+    mat-icon-button
+    (click)="toggleDirection()"
+    aria-label="Toggle sort direction"
+  >
+    <mat-icon>
+      {{ sortDirection === 'asc' ? 'south' : 'north' }}
+    </mat-icon>
+  </button>
+</div>
