@@ -4,6 +4,7 @@ import {AuthService} from '../../auth.service';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-card',
@@ -27,7 +28,7 @@ import {MatButton} from '@angular/material/button';
 export class LoginCardComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private auth: AuthService) {}
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -51,7 +52,9 @@ export class LoginCardComponent implements OnInit {
       return;
     }
 
-    alert('User logged in successfully!');
+    localStorage.setItem("loggedInUser", JSON.stringify({ username }));
+    (document.activeElement as HTMLElement)?.blur();
     this.loginForm.reset();
+    this.router.navigate(["/home"]);
   }
 }
