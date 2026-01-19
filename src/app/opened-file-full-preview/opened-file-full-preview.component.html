@@ -1,0 +1,33 @@
+<mat-card class="file-full-preview mat-elevation-z8">
+
+  <mat-card-header class="file-card-header">
+    <mat-card-title>{{ item.name }}.{{ item.extension }}</mat-card-title>
+    <button mat-icon-button class="close-btn" aria-label="Close" (click)="closeFile()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-header>
+
+  <mat-card-content class="file-card-content">
+    <p><strong>Size:</strong> {{ item.size | number }} bytes</p>
+    <p><strong>Created by:</strong> {{ item.createUser }}</p>
+    <p><strong>Created at:</strong> {{ item.createDate | date:'medium' }}</p>
+
+    @if(item.updateUser) {
+      <p><strong>Updated by:</strong> {{ item.updateUser }}</p>
+    }
+    @if(item.updateDate) {
+      <p><strong>Updated at:</strong> {{ item.updateDate | date:'medium' }}</p>
+    }
+
+    <mat-form-field appearance="outline" class="full-width file-content">
+      <mat-label>File Content</mat-label>
+      <textarea matInput readonly [value]="item.content"></textarea>
+    </mat-form-field>
+
+    @if(item.url) {
+      <div class="file-url">
+        <a [href]="item.url" target="_blank">Open File</a>
+      </div>
+    }
+  </mat-card-content>
+</mat-card>
