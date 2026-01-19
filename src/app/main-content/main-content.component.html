@@ -1,7 +1,8 @@
 <mat-grid-list cols="5" rowHeight="1:1">
   @for (file of files; track file.name) {
     <mat-grid-tile>
-      <app-file-card [file]="file"></app-file-card>
+      <app-file-card [file]="file"(delete)="onFileDeleted($event)">
+      </app-file-card>
     </mat-grid-tile>
   }
 </mat-grid-list>

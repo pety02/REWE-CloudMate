@@ -21,6 +21,15 @@ export class MainContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadFiles();
+  }
+
+  loadFiles(): void {
     this.files = this.fileService.getFiles();
+  }
+
+  onFileDeleted(file: FileItem): void {
+    // Refresh the files array
+    this.loadFiles();
   }
 }
