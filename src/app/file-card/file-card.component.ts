@@ -81,4 +81,13 @@ export class FileCardComponent implements OnInit {
       autoFocus: true
     });
   }
+
+  get tooltipText(): string {
+    const created = new Date(this.file.createDate).toLocaleString();
+    const updated = this.file.updateDate
+      ? new Date(this.file.updateDate).toLocaleString()
+      : '—';
+
+    return `Created At: ${created}\nUpdated At: ${updated}`.replace(/\s([AP]M)$/, '\u00A0$1');
+  }
 }
