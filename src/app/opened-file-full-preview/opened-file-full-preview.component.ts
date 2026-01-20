@@ -6,6 +6,7 @@ import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/mat
 import {MatIconButton} from '@angular/material/button';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
+import {FileSizePipe} from '../file-card/pipes/file-size.pipe';
 
 @Component({
   selector: 'app-opened-file-full-preview',
@@ -21,7 +22,8 @@ import {MatIcon} from '@angular/material/icon';
     MatIcon,
     MatLabel,
     MatInput,
-    MatFormField
+    MatFormField,
+    FileSizePipe
   ],
   styleUrls: ['./opened-file-full-preview.component.css']
 })

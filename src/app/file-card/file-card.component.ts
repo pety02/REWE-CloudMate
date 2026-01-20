@@ -23,9 +23,10 @@ import {Router} from '@angular/router';
     MatIconButton,
     FileSizePipe,
     MatTooltip,
-    DatePipe,
     MatButton,
+    DatePipe
   ],
+  providers: [DatePipe],
   templateUrl: './file-card.component.html',
   styleUrl: './file-card.component.css'
 })
@@ -34,7 +35,7 @@ export class FileCardComponent implements OnInit {
 
   @Output() delete = new EventEmitter<FileItem>();
 
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor(private dialog: MatDialog, private router: Router, private datePipe: DatePipe) {}
 
   ngOnInit(): void {}
 
@@ -53,15 +54,25 @@ export class FileCardComponent implements OnInit {
 
   onDelete(file: FileItem): void {
     const stored = localStorage.getItem('files');
-    let files: FileItem[] = stored ? JSON.parse(stored) : [];
+    if (!stored) return;
 
-    console.log("ALL FILES: ", files);
-    files = files.filter(f => f.name !== file.name || f.extension !== file.extension);
-    console.log("WITHOUT CURR FILE: ", files);
+    const data = JSON.parse(stored);
 
-    localStorage.setItem('files', JSON.stringify(files));
+    const fileKey = `${file.name}.${file.extension}`;
 
-    console.log('Deleted', file);
+    data.files = data.files.filter(
+      (f: FileItem) =>
+        !(f.name === file.name && f.extension === file.extension)
+    );
+
+    Object.keys(data.userFiles).forEach(username => {
+      data.userFiles[username] =
+        data.userFiles[username].filter((f: string) => f !== fileKey);
+    });
+
+    localStorage.setItem('files', JSON.stringify(data));
+
+    console.log('Deleted file:', fileKey);
 
     this.delete.emit(file);
     this.router.navigate(['/home']);
@@ -83,11 +94,17 @@ export class FileCardComponent implements OnInit {
   }
 
   get tooltipText(): string {
-    const created = new Date(this.file.createDate).toLocaleString();
-    const updated = this.file.updateDate
-      ? new Date(this.file.updateDate).toLocaleString()
-      : '—';
+    const format = (d: any) => {
+      if (!d) return 'N/A';
 
-    return `Created At: ${created}\nUpdated At: ${updated}`.replace(/\s([AP]M)$/, '\u00A0$1');
+      try {
+        const mediumDate = this.datePipe.transform(d, 'medium') || 'N/A';
+        return mediumDate.replace(/\s([AP]M)$/, '\u00A0$1');
+      } catch (e) {
+        return 'Invalid Date';
+      }
+    };
+
+    return `Created: ${format(this.file.createDate)}\nUpdated: ${format(this.file.updateDate)}`;
   }
 }
