@@ -20,7 +20,12 @@ export class FileService {
     localStorage.setItem(this.storageKey, JSON.stringify(mockFiles));
   }
 
-  getFiles(): FileItem[] {
-    return JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+  getFiles(username: string): FileItem[] {
+    const data = JSON.parse(localStorage.getItem('files')!);
+    const fileKeys = data.userFiles[username] || [];
+
+    return data.files.filter((f: any) =>
+      fileKeys.includes(`${f.name}.${f.extension}`)
+    );
   }
 }
