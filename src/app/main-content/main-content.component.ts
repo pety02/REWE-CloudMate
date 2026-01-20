@@ -25,7 +25,14 @@ export class MainContentComponent implements OnInit {
   }
 
   loadFiles(): void {
-    this.files = this.fileService.getFiles();
+    const storedUser = localStorage.getItem('loggedInUser');
+
+    if (!storedUser) {
+      this.files = [];
+      return;
+    }
+    const { username } = JSON.parse(storedUser);
+    this.files = this.fileService.getFiles(username);
   }
 
   onFileDeleted(file: FileItem): void {

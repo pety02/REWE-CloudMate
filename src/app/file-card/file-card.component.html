@@ -1,5 +1,6 @@
 <mat-card class="file-card"
-          [matTooltip]="'Created At: ' + (file.createDate | date) + '\nUpdated At: ' + (file.updateDate | date)"
+          [matTooltip]="tooltipText"
+          matTooltipClass="multiline-tooltip"
           matTooltipPosition="above"
 >
   <mat-card-header>

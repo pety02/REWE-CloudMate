@@ -1,91 +1,119 @@
-[
-  {
-    "name": "project_plan",
-    "extension": "pdf",
-    "size": 245760,
-    "url": "https://example.com/files/project_plan.pdf",
-    "createDate": "2025-01-03T09:15:22Z",
-    "updateDate": "2025-01-10T14:40:11Z",
-    "createUser": "alice.wong",
-    "updateUser": "bob.smith"
-  },
-  {
-    "name": "invoice_2024_12",
-    "extension": "docx",
-    "content": "Invoice document for December 2024",
-    "size": 98304,
-    "createDate": "2024-12-18T11:02:45Z",
-    "createUser": "finance.bot"
-  },
-  {
-    "name": "team_photo",
-    "extension": "jpg",
-    "size": 3145728,
-    "url": "https://example.com/images/team_photo.jpg",
-    "createDate": "2025-02-01T08:30:00Z",
-    "updateDate": "2025-02-02T16:18:09Z",
-    "createUser": "maria.lopez",
-    "updateUser": "maria.lopez"
-  },
-  {
-    "name": "app_icon",
-    "extension": "svg",
-    "content": "<svg>...</svg>",
-    "size": 4096,
-    "url": "https://example.com/assets/app_icon.svg",
-    "createDate": "2025-01-22T13:44:10Z",
-    "createUser": "ui.designer"
-  },
-  {
-    "name": "backup_2025_01_15",
-    "extension": "zip",
-    "size": 52428800,
-    "createDate": "2025-01-15T02:10:55Z",
-    "createUser": "system.admin"
-  },
-  {
-    "name": "requirements",
-    "extension": "txt",
-    "content": "Functional and non-functional requirements",
-    "size": 2048,
-    "createDate": "2024-11-28T17:05:33Z",
-    "updateDate": "2024-12-01T10:12:00Z",
-    "createUser": "product.owner",
-    "updateUser": "tech.lead"
-  },
-  {
-    "name": "presentation_q1",
-    "extension": "pptx",
-    "size": 7340032,
-    "createDate": "2025-03-05T09:00:00Z",
-    "createUser": "john.doe"
-  },
-  {
-    "name": "server_logs",
-    "extension": "log",
-    "content": "Error and access logs",
-    "size": 1572864,
-    "createDate": "2025-02-14T23:59:59Z",
-    "updateDate": "2025-02-15T00:10:12Z",
-    "createUser": "system.bot",
-    "updateUser": "system.bot"
-  },
-  {
-    "name": "user_manual",
-    "extension": "pdf",
-    "size": 12582912,
-    "url": "https://example.com/docs/user_manual.pdf",
-    "createDate": "2024-10-09T12:20:41Z",
-    "createUser": "documentation.team"
-  },
-  {
-    "name": "database_schema",
-    "extension": "sql",
-    "content": "CREATE TABLE users (...);",
-    "size": 8192,
-    "createDate": "2025-01-30T18:55:00Z",
-    "updateDate": "2025-02-03T07:40:18Z",
-    "createUser": "db.admin",
-    "updateUser": "db.admin"
+{
+  "users": [
+    { "username": "alice42", "password": "P@ssw0rd1" },
+    { "username": "bob_smith", "password": "Qwerty!23" },
+    { "username": "charlie99", "password": "Zxcvbnm9" },
+    { "username": "diana.k", "password": "Pass1234!" },
+    { "username": "edward7", "password": "MyPass#77" },
+    { "username": "fiona_88", "password": "Hello@2026" },
+    { "username": "georgeT", "password": "Secure!45" },
+    { "username": "hannah.w", "password": "Alpha123!" },
+    { "username": "ivan007", "password": "Bravo#007" },
+    { "username": "juliaX", "password": "Charlie!9" }
+  ],
+
+  "files": [
+    {
+      "name": "project_plan",
+      "extension": "pdf",
+      "size": 245760,
+      "url": "https://example.com/files/project_plan.pdf",
+      "createDate": "2025-01-03T09:15:22Z",
+      "updateDate": "2025-01-10T14:40:11Z",
+      "createUser": "alice42",
+      "updateUser": "bob_smith"
+    },
+    {
+      "name": "invoice_2024_12",
+      "extension": "docx",
+      "content": "Invoice document for December 2024",
+      "size": 98304,
+      "createDate": "2024-12-18T11:02:45Z",
+      "createUser": "edward7"
+    },
+    {
+      "name": "team_photo",
+      "extension": "jpg",
+      "size": 3145728,
+      "url": "https://example.com/images/team_photo.jpg",
+      "createDate": "2025-02-01T08:30:00Z",
+      "updateDate": "2025-02-02T16:18:09Z",
+      "createUser": "juliaX",
+      "updateUser": "juliaX"
+    },
+    {
+      "name": "app_icon",
+      "extension": "svg",
+      "content": "<svg>...</svg>",
+      "size": 4096,
+      "url": "https://example.com/assets/app_icon.svg",
+      "createDate": "2025-01-22T13:44:10Z",
+      "createUser": "hannah.w"
+    },
+    {
+      "name": "backup_2025_01_15",
+      "extension": "zip",
+      "size": 52428800,
+      "createDate": "2025-01-15T02:10:55Z",
+      "createUser": "georgeT"
+    },
+    {
+      "name": "requirements",
+      "extension": "txt",
+      "content": "Functional and non-functional requirements",
+      "size": 2048,
+      "createDate": "2024-11-28T17:05:33Z",
+      "updateDate": "2024-12-01T10:12:00Z",
+      "createUser": "diana.k",
+      "updateUser": "charlie99"
+    },
+    {
+      "name": "presentation_q1",
+      "extension": "pptx",
+      "size": 7340032,
+      "createDate": "2025-03-05T09:00:00Z",
+      "createUser": "charlie99"
+    },
+    {
+      "name": "server_logs",
+      "extension": "log",
+      "content": "Error and access logs",
+      "size": 1572864,
+      "createDate": "2025-02-14T23:59:59Z",
+      "updateDate": "2025-02-15T00:10:12Z",
+      "createUser": "bob_smith",
+      "updateUser": "bob_smith"
+    },
+    {
+      "name": "user_manual",
+      "extension": "pdf",
+      "size": 12582912,
+      "url": "https://example.com/docs/user_manual.pdf",
+      "createDate": "2024-10-09T12:20:41Z",
+      "createUser": "fiona_88"
+    },
+    {
+      "name": "database_schema",
+      "extension": "sql",
+      "content": "CREATE TABLE users (...);",
+      "size": 8192,
+      "createDate": "2025-01-30T18:55:00Z",
+      "updateDate": "2025-02-03T07:40:18Z",
+      "createUser": "ivan007",
+      "updateUser": "ivan007"
+    }
+  ],
+
+  "userFiles": {
+    "alice42": ["project_plan.pdf"],
+    "bob_smith": ["server_logs.log"],
+    "charlie99": ["presentation_q1.pptx"],
+    "diana.k": ["requirements.txt"],
+    "edward7": ["invoice_2024_12.docx"],
+    "fiona_88": ["user_manual.pdf"],
+    "georgeT": ["backup_2025_01_15.zip"],
+    "hannah.w": ["app_icon.svg"],
+    "ivan007": ["database_schema.sql"],
+    "juliaX": ["team_photo.jpg"]
   }
-]
+}
