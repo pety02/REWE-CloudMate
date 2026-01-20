@@ -8,7 +8,7 @@
   </mat-card-header>
 
   <mat-card-content class="file-card-content">
-    <p><strong>Size:</strong> {{ item.size | number }} bytes</p>
+    <p><strong>Size:</strong> {{ item.size | fileSize }} </p>
     <p><strong>Created by:</strong> {{ item.createUser }}</p>
     <p><strong>Created at:</strong> {{ item.createDate | date:'medium' }}</p>
 
