@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {firstValueFrom} from 'rxjs';
 import {User} from './models/user.model';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthService {
   private storageKey = 'users';
 
@@ -12,13 +12,10 @@ export class AuthService {
   }
 
   private async initializeUsers() {
-    const users = localStorage.getItem(this.storageKey);
-    if (!users) {
-      const mockUsers = await firstValueFrom(
-        this.http.get<User[]>('/assets/mock-users.json')
-      );
-      localStorage.setItem(this.storageKey, JSON.stringify(mockUsers));
-    }
+    const mockUsers = await firstValueFrom(
+      this.http.get<User[]>('/mock-users.json')
+    );
+    localStorage.setItem(this.storageKey, JSON.stringify(mockUsers));
   }
 
   getUsers(): User[] {

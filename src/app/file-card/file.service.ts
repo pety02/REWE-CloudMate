@@ -10,17 +10,14 @@ export class FileService {
   private storageKey = 'files';
 
   constructor(private http: HttpClient) {
-    this.initializeFiles();
+
   }
 
-  private async initializeFiles() {
-    const files = localStorage.getItem(this.storageKey);
-    if (!files) {
-      const mockFiles = await firstValueFrom(
-        this.http.get<User[]>('/mock-files.json')
-      );
-      localStorage.setItem(this.storageKey, JSON.stringify(mockFiles));
-    }
+  public async initializeFiles() {
+    const mockFiles = await firstValueFrom(
+      this.http.get<User[]>('/mock-files.json')
+    );
+    localStorage.setItem(this.storageKey, JSON.stringify(mockFiles));
   }
 
   getFiles(): FileItem[] {

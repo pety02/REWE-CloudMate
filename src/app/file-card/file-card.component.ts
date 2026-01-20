@@ -8,7 +8,6 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {DatePipe} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {OpenedFileFullPreviewComponent} from '../opened-file-full-preview/opened-file-full-preview.component';
-import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 @Component({
