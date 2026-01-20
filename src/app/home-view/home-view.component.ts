@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDivider} from '@angular/material/divider';
 import {NavigationBarComponent} from '../navigation-bar/navigation-bar.component';
 import {SideNavigationBarComponent} from '../side-navigation-bar/side-navigation-bar.component';
@@ -6,6 +6,7 @@ import {MainContentComponent} from '../main-content/main-content.component';
 import {ExternalLinksPanelComponent} from '../external-links-panel/external-links-panel.component';
 import {ToolbarComponent} from '../toolbar/toolbar.component';
 import {FilePreviewComponent} from '../file-preview/file-preview.component';
+import {FileService} from '../file-card/file.service';
 
 @Component({
   selector: 'app-home-view',
@@ -22,6 +23,12 @@ import {FilePreviewComponent} from '../file-preview/file-preview.component';
   templateUrl: './home-view.component.html',
   styleUrl: './home-view.component.css'
 })
-export class HomeViewComponent {
+export class HomeViewComponent implements OnInit {
 
+  constructor(private fileService: FileService) {
+  }
+
+  ngOnInit(): void {
+    this.fileService.initializeFiles();
+  }
 }
