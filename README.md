@@ -1,59 +1,16 @@
-# REWECloud
+# Questions for the REWE-CloudMate Project
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+1. What content should be included in the “External Links” section (bottom-right corner on home view suggested design)? Should these be links related to the Open for Preview file, or something else? Also, should these links be clickable/openable?
 
-## Development server
+2. In your design suggestion, you mentioned adding a navigation area above the file list with sorting options (e.g., Sort1 | Sort2 | … | SortN). Are my proposed sorting options—by name, size, creation date, and last update date—appropriate, or did you have something else in mind?
 
-To start a local development server, run:
+3. Is it acceptable to implement the search bar so that the search is triggered automatically every 3–5 seconds while the user is typing?
 
-```bash
-ng serve
-```
+4. For the side navigation bar, do you have any recommendations on how to make the transition animations smoother?
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+5. Did I understand the side navigation behavior correctly?
+- When the Home button is selected, all personal files should be displayed (files created/updated by the user as well as files shared with them).
+- When the Shared button is selected, only files shared with the user should be displayed.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+> **Note:**
+> Most views are already designed, but not all functionality has been implemented yet 🙂
