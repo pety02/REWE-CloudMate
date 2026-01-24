@@ -1,33 +1,41 @@
-<form [formGroup]="shareForm" (ngSubmit)="onSubmit()">
-  <mat-card-content class="file-card-content">
+<mat-card class="file-full-preview">
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Username</mat-label>
-      <input
-        matInput
-        placeholder="Enter username..."
-        type="text"
-        formControlName="username"
-      />
+  <mat-card-header class="file-card-header">
+    <mat-card-title><strong>Share</strong> {{ item.name }}.{{ item.extension }}</mat-card-title>
+    <button mat-icon-button aria-label="Close" (click)="closeFile()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-header>
 
-      <mat-error *ngIf="usernameCtrl.hasError('required')">
-        Username is required
-      </mat-error>
+  <form [formGroup]="shareForm" (ngSubmit)="onSubmit()">
+    <mat-card-content class="file-card-content">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          placeholder="Enter username..."
+          type="text"
+          formControlName="username"
+        />
 
-      <mat-error *ngIf="usernameCtrl.hasError('userNotFound')">
-        User not found
-      </mat-error>
-    </mat-form-field>
+        <mat-error *ngIf="usernameCtrl.hasError('required')">
+          Username is required
+        </mat-error>
 
-    <div class="actions">
-      <button mat-flat-button color="primary" type="submit" [disabled]="shareForm.invalid">
-        Share
-      </button>
+        <mat-error *ngIf="usernameCtrl.hasError('userNotFound')">
+          User not found
+        </mat-error>
+      </mat-form-field>
 
-      <button mat-button type="button" (click)="closeFile()">
-        Cancel
-      </button>
-    </div>
+      <div class="actions">
+        <button mat-flat-button color="primary" type="submit" [disabled]="shareForm.invalid">
+          Share
+        </button>
 
-  </mat-card-content>
-</form>
+        <button mat-button type="button" (click)="closeFile()">
+          Cancel
+        </button>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>

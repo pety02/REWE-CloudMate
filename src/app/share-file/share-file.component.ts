@@ -3,14 +3,16 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import {
-  MatCardContent,
+  MatCard,
+  MatCardContent, MatCardHeader, MatCardTitle,
 } from '@angular/material/card';
-import { MatButton } from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {FileItem} from '../file-card/models/file-item.model';
 import {User} from '../auth/models/user.model';
 import {StoredData} from '../files-loading/models/StoredData.model';
 import {NgIf} from '@angular/common';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-share-file',
@@ -23,7 +25,12 @@ import {NgIf} from '@angular/common';
     MatLabel,
     MatButton,
     MatError,
-    NgIf
+    NgIf,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatIcon,
+    MatIconButton
   ],
   templateUrl: './share-file.component.html',
   styleUrls: [
