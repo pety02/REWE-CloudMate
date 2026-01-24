@@ -24,7 +24,6 @@ import {Router} from '@angular/router';
     FileSizePipe,
     MatTooltip,
     MatButton,
-    DatePipe
   ],
   providers: [DatePipe],
   templateUrl: './file-card.component.html',

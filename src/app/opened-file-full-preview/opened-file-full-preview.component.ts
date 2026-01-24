@@ -1,19 +1,17 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FileItem } from '../file-card/models/file-item.model';
-import {DatePipe, DecimalPipe} from '@angular/common';
 import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {MatIconButton} from '@angular/material/button';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
 import {FileSizePipe} from '../file-card/pipes/file-size.pipe';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-opened-file-full-preview',
   templateUrl: './opened-file-full-preview.component.html',
   imports: [
-    DecimalPipe,
-    DatePipe,
     MatCardContent,
     MatCardHeader,
     MatCard,
@@ -23,7 +21,8 @@ import {FileSizePipe} from '../file-card/pipes/file-size.pipe';
     MatLabel,
     MatInput,
     MatFormField,
-    FileSizePipe
+    FileSizePipe,
+    DatePipe
   ],
   styleUrls: ['./opened-file-full-preview.component.css']
 })
