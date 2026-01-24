@@ -86,7 +86,7 @@ export class FileCardComponent implements OnInit {
     localStorage.setItem('openedFile', JSON.stringify(file));
 
     this.dialog.open(OpenedFileFullPreviewComponent, {
-      width: '600px',
+      width: '37.5rem',
       height: '80vh',
       data: file,
       autoFocus: true

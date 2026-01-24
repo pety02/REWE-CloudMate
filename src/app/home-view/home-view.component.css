@@ -1,6 +1,6 @@
 .app-container {
   display: flex;
-  height: 686px;
+  height: 42.875rem;
 }
 
 .box1 {
@@ -31,10 +31,10 @@
 
 .box2-info {
   flex: 1;
-  margin-right: 8px;
+  margin-right: 0.5rem;
 }
 
 .box2-ext-links {
   flex: 1;
-  margin-left: 8px;
+  margin-left: 0.5rem;
 }

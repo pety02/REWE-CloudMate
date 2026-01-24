@@ -2,11 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  margin: 6px 0 6px 0;
+  gap: 0.75rem;
+  margin: 0.375rem 0 0.375rem 0;
 }
 
 mat-button-toggle mat-icon {
-  font-size: 18px;
-  margin-left: 4px;
-}
+  font-size: 1rem;
+  margin-left: 0.25rem;
+}f
