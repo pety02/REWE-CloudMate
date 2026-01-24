@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import {StoredData} from './models/StoredData.model';
+import {StoredData} from '../../models/StoredData.model';
+import {FileSortService} from '../../services/file-sort.service';
 
 @Component({
-  selector: 'app-navigation-bar',
+  selector: 'app-sorting-nav-bar',
   standalone: true,
   imports: [
     MatButtonToggleGroup,
@@ -13,12 +14,15 @@ import {StoredData} from './models/StoredData.model';
     MatIcon,
     MatButton,
   ],
-  templateUrl: './navigation-bar.component.html',
-  styleUrl: './navigation-bar.component.css'
+  templateUrl: './sorting-nav-bar.html',
+  styleUrl: './sorting-nav-bar.css'
 })
-export class NavigationBarComponent {
+export class SortingNavBar {
   sortDirection: 'asc' | 'desc' = 'asc';
   activeSort: 'title' | 'size' | 'createdAt' | 'updatedAt' = 'title';
+
+  constructor(private fileSortService: FileSortService) {
+  }
 
   onSortClick(sortKey: typeof this.activeSort) {
     if (this.activeSort === sortKey) {
@@ -172,5 +176,7 @@ export class NavigationBarComponent {
     } else {
       this.applyUpdatedAtSort();
     }
+
+    this.fileSortService.notifySortChanged();
   }
 }
