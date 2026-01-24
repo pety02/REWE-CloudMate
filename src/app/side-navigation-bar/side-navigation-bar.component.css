@@ -1,6 +1,6 @@
 .mat-drawer-container {
-  height: 686px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  height: 42.875rem;
+  border: 0.0625rem solid rgba(0, 0, 0, 0.5);
   transition: width 160ms;
 }
 
@@ -25,13 +25,12 @@
 }
 
 .mat-drawer-sidenav {
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .menu {
-  padding-top: 217px;
+  padding-top: 13.625rem;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
 }
-
