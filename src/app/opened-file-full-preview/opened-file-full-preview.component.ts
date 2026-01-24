@@ -24,7 +24,10 @@ import {DatePipe} from '@angular/common';
     FileSizePipe,
     DatePipe
   ],
-  styleUrls: ['./opened-file-full-preview.component.css']
+  styleUrls: [
+    './opened-file-full-preview.component.css',
+    '../../styles/file/shared-styles.css'
+  ]
 })
 export class OpenedFileFullPreviewComponent {
 

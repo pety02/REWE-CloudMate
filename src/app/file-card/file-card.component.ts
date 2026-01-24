@@ -9,6 +9,7 @@ import {DatePipe} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {OpenedFileFullPreviewComponent} from '../opened-file-full-preview/opened-file-full-preview.component';
 import {Router} from '@angular/router';
+import {ShareFileComponent} from '../share-file/share-file.component';
 
 @Component({
   selector: 'app-file-card',
@@ -78,7 +79,15 @@ export class FileCardComponent implements OnInit {
   }
 
   onShare(file: FileItem): void {
-    console.log('Share', file);
+    localStorage.setItem('sharedFile', JSON.stringify(file));
+
+    this.dialog.open(ShareFileComponent, {
+      width: '37.5rem',
+      maxHeight: '30vh',
+      data: file,
+      autoFocus: true,
+      panelClass: 'file-preview-dialog'
+    });
   }
 
   openFile(file: FileItem): void {
@@ -86,9 +95,10 @@ export class FileCardComponent implements OnInit {
 
     this.dialog.open(OpenedFileFullPreviewComponent, {
       width: '37.5rem',
-      height: '80vh',
+      maxHeight: '87vh',
       data: file,
-      autoFocus: true
+      autoFocus: true,
+      panelClass: 'file-preview-dialog'
     });
   }
 

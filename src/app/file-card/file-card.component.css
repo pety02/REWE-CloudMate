@@ -18,6 +18,12 @@
   height: 10rem;
 }
 
+.file-preview-dialog .mat-mdc-dialog-surface {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .preview-image {
   max-width: 60%;
   max-height: 60%;
