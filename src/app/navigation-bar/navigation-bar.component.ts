@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import {FileItem} from '../file-card/models/file-item.model';
+import {StoredData} from './models/StoredData.model';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -29,17 +29,33 @@ export class NavigationBarComponent {
     }
   }
 
-  private applyTitleSort (): void {
-    const filesRaw = localStorage.getItem('files');
-    const userRaw = localStorage.getItem('loggedInUser');
+  private getStoredFiles(): any[] {
+    const raw = localStorage.getItem('files');
 
-    if (!filesRaw || !userRaw) {
-      console.warn('Files or logged-in user not found');
-      return;
+    if (!raw) {
+      return [];
     }
 
-    const files: FileItem[] = JSON.parse(filesRaw);
-    const { username } = JSON.parse(userRaw);
+    const parsed: StoredData = JSON.parse(raw);
+
+    return Array.isArray(parsed.files) ? parsed.files : [];
+  }
+
+  private getLoggedInUsername(): string | null {
+    const raw = localStorage.getItem('loggedInUser');
+    if (!raw) return null;
+
+    return JSON.parse(raw).username ?? null;
+  }
+
+  private applyTitleSort(): void {
+    const files = this.getStoredFiles();
+    const username = this.getLoggedInUsername();
+
+    if (!username) {
+      console.warn('No logged-in user');
+      return;
+    }
 
     const userFiles = files.filter(
       file => file.createUser === username
@@ -55,22 +71,17 @@ export class NavigationBarComponent {
 
     localStorage.setItem('sortedFiles', JSON.stringify(userFiles));
 
-    console.log(
-      `Sorted ${userFiles.length} files by title (${this.sortDirection})`
-    );
+    console.log('Sorted by title:', this.sortDirection, userFiles);
   }
 
   private applySizeSort (): void{
-    const filesRaw = localStorage.getItem('files');
-    const userRaw = localStorage.getItem('loggedInUser');
+    const files = this.getStoredFiles();
+    const username = this.getLoggedInUsername();
 
-    if (!filesRaw || !userRaw) {
-      console.warn('Files or logged-in user not found');
+    if (!username) {
+      console.warn('No logged-in user');
       return;
     }
-
-    const files: FileItem[] = JSON.parse(filesRaw);
-    const { username } = JSON.parse(userRaw);
 
     const userFiles = files.filter(
       file => file.createUser === username
@@ -85,21 +96,19 @@ export class NavigationBarComponent {
     localStorage.setItem('sortedFiles', JSON.stringify(userFiles));
 
     console.log(
-      `Sorted ${userFiles.length} files by title (${this.sortDirection})`
+      `Sorted by size (${this.sortDirection})`,
+      userFiles
     );
   }
 
   private applyCreatedAtSort(): void {
-    const filesRaw = localStorage.getItem('files');
-    const userRaw = localStorage.getItem('loggedInUser');
+    const files = this.getStoredFiles();
+    const username = this.getLoggedInUsername();
 
-    if (!filesRaw || !userRaw) {
-      console.warn('Files or logged-in user not found');
+    if (!username) {
+      console.warn('No logged-in user');
       return;
     }
-
-    const files = JSON.parse(filesRaw);
-    const { username } = JSON.parse(userRaw);
 
     const userFiles = files.filter(
       (file: any) => file.createUser === username && file.createDate
@@ -123,16 +132,13 @@ export class NavigationBarComponent {
   }
 
   private applyUpdatedAtSort(): void {
-    const filesRaw = localStorage.getItem('files');
-    const userRaw = localStorage.getItem('loggedInUser');
+    const files = this.getStoredFiles();
+    const username = this.getLoggedInUsername();
 
-    if (!filesRaw || !userRaw) {
-      console.warn('Files or logged-in user not found');
+    if (!username) {
+      console.warn('No logged-in user');
       return;
     }
-
-    const files = JSON.parse(filesRaw);
-    const { username } = JSON.parse(userRaw);
 
     const userFiles = files.filter(
       (file: any) => file.createUser === username && file.updateDate
