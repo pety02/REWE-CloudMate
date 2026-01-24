@@ -1,4 +1,5 @@
-<mat-form-field appearance="outline" class="text-area-container">
-  <mat-label>External Links</mat-label>
-  <textarea matInput readonly></textarea>
-</mat-form-field>
+<ul *ngIf="externalLinks?.length">
+  <li *ngFor="let link of externalLinks">
+    <a [href]="link" target="_blank">{{ link }}</a>
+  </li>
+</ul>

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
+import {NgForOf, NgIf} from '@angular/common';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-external-links-panel',
@@ -7,7 +9,9 @@ import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
     MatFormField,
     MatInput,
     MatLabel,
-    MatFormField
+    MatFormField,
+    NgIf,
+    NgForOf
   ],
   templateUrl: './external-links-panel.component.html',
   styleUrls: [
@@ -15,6 +19,23 @@ import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
     '../../styles/file/shared-styles.css'
   ]
 })
-export class ExternalLinksPanelComponent {
+export class ExternalLinksPanelComponent implements OnInit {
+  externalLinks: string[] = [];
 
+  constructor(private http: HttpClient) {
+
+  }
+
+  ngOnInit(): void {
+    this.http.get<string[]>('/external-links.json').subscribe({
+      next: (links: string[]) => {
+        this.externalLinks = links;
+        console.log('External links loaded:', this.externalLinks);
+      },
+      error: (err) => {
+        console.error('Failed to load external links', err);
+        this.externalLinks = [];
+      },
+    });
+  }
 }
