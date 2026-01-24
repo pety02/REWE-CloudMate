@@ -91,7 +91,7 @@ export class ShareFileComponent {
   }
 
   private getStoredData(): StoredData {
-    const raw = localStorage.getItem('mockData');
+    const raw = localStorage.getItem('files');
 
     if (!raw) {
       throw new Error('No stored data found');

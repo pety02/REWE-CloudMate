@@ -115,7 +115,7 @@ export class SortingNavBar {
     }
 
     const userFiles = files.filter(
-      (file: any) => file.createUser === username && file.createDate
+      file => file.createUser === username
     );
 
     userFiles.sort((a: any, b: any) => {
