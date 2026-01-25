@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from '../../../../services/auth.service';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
-import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-login-card',
@@ -18,6 +19,8 @@ import {Router} from '@angular/router';
     MatInput,
     MatButton,
     MatCard,
+    MatError,
+    NgIf,
   ],
   templateUrl: 'login-card.component.html',
   styleUrls: [
@@ -27,19 +30,44 @@ import {Router} from '@angular/router';
 })
 export class LoginCardComponent implements OnInit {
   loginForm!: FormGroup;
+  errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(30),
+          Validators.pattern(
+            '^(?=.{3,30}$)[a-zA-Z0-9]([a-zA-Z0-9_.]*)[a-zA-Z0-9]$'
+          )
+        ]
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(32),
+          Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$')
+        ]
+      ]
     });
   }
 
   login(): void {
+    this.errorMessage = null;
+
     if (this.loginForm.invalid) {
-      alert('Please fill all fields');
+      this.errorMessage = 'Please fix the errors in the form.';
       return;
     }
 
@@ -48,13 +76,13 @@ export class LoginCardComponent implements OnInit {
     const success = this.auth.login(username, password);
 
     if (!success) {
-      alert('Bad credentials');
+      this.errorMessage = 'Invalid username or password.';
       return;
     }
 
-    localStorage.setItem("loggedInUser", JSON.stringify({ username }));
+    localStorage.setItem('loggedInUser', JSON.stringify({ username }));
     (document.activeElement as HTMLElement)?.blur();
     this.loginForm.reset();
-    this.router.navigate(["/home"]);
+    this.router.navigate(['/home']);
   }
 }
