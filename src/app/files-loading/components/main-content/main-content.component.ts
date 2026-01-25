@@ -30,6 +30,10 @@ export class MainContentComponent implements OnInit {
     this.fileSortService.sortChanged$.subscribe(() => {
       this.loadFiles();
     });
+
+    this.fileService.getSearchQuery().subscribe(() => {
+      this.loadFiles();
+    });
   }
 
   loadFiles(): void {
@@ -40,26 +44,31 @@ export class MainContentComponent implements OnInit {
     }
 
     const { username } = JSON.parse(storedUser);
+    const query = this.fileService.getCurrentSearchQuery(); // clean access
 
-    // Get sorted files from localStorage if they exist
+    let files: FileItem[] = [];
+
     const sortedRaw = localStorage.getItem('sortedFiles');
     if (sortedRaw) {
-      const sortedFiles: FileItem[] = JSON.parse(sortedRaw);
-      // Filter only files belonging to this user
-      this.files = sortedFiles.filter(file => file.createUser === username);
-      return;
+      files = JSON.parse(sortedRaw) as FileItem[];
+    } else {
+      files = this.fileService.getFiles(username);
     }
 
-    // Fallback: get unsorted files from service
-    this.files = this.fileService.getFiles(username);
+    files = files.filter(file => file.createUser === username);
+
+    if (query) {
+      const q = query.toLowerCase();
+      files = files.filter(file =>
+        file.name.toLowerCase().includes(q) ||
+        file.extension.toLowerCase().includes(q)
+      );
+    }
+
+    this.files = files;
   }
 
   onFileDeleted(file: FileItem): void {
-    // Refresh the list when a file is deleted
     this.loadFiles();
-  }
-
-  trackByName(index: number, file: FileItem) {
-    return file.name;
   }
 }
