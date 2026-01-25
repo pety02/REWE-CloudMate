@@ -8,9 +8,9 @@ import {
 } from '@angular/material/card';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
-import {FileItem} from '../file-card/models/file-item.model';
-import {User} from '../auth/models/user.model';
-import {StoredData} from '../files-loading/models/StoredData.model';
+import {FileItem} from '../../models/file-item.model';
+import {User} from '../../models/user.model';
+import {StoredData} from '../../models/stored-data.model';
 import {NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 

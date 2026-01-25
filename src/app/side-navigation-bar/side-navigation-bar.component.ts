@@ -4,8 +4,8 @@ import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/create-or-update-file-view.component';
-import {FileItem} from '../file-card/models/file-item.model';
-import {FileService} from '../file-card/file.service';
+import {FileItem} from '../../models/file-item.model';
+import {FileService} from '../../services/file.service';
 
 @Component({
   selector: 'app-side-navigation-bar',

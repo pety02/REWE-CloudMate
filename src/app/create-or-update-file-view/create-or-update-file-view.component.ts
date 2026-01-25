@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FileItem } from '../file-card/models/file-item.model';
-import {FileDialogData} from './models/file-dialog-data.model';
+import { FileItem } from '../../models/file-item.model';
+import {FileDialogData} from '../../models/file-dialog-data.model';
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';

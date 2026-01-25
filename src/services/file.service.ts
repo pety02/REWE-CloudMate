@@ -1,5 +1,5 @@
-import {FileItem} from './models/file-item.model';
-import {StoredData} from '../files-loading/models/StoredData.model';
+import {FileItem} from '../models/file-item.model';
+import {StoredData} from '../models/stored-data.model';
 import {BehaviorSubject, firstValueFrom, Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';

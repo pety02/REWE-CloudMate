@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FileCardComponent } from '../../../file-card/file-card.component';
-import { FileItem } from '../../../file-card/models/file-item.model';
-import { FileService } from '../../../file-card/file.service';
+import { FileItem } from '../../../../models/file-item.model';
+import { FileService } from '../../../../services/file.service';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
-import {FileSortService} from '../../file-sort.service';
+import {FileSortService} from '../../../../services/file-sort.service';
 
 @Component({
   selector: 'app-main-content',

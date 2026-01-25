@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { LoginCardComponent } from '../login-card/login-card.component';
 import { RegisterCardComponent } from '../register-card/register-card.component';
-import {AuthService} from '../../auth.service';
+import {AuthService} from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-auth-tabs',
