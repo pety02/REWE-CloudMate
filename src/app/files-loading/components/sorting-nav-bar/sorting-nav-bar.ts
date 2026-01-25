@@ -3,7 +3,7 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {StoredData} from '../../models/StoredData.model';
-import {FileSortService} from '../../services/file-sort.service';
+import {FileSortService} from '../../file-sort.service';
 
 @Component({
   selector: 'app-sorting-nav-bar',

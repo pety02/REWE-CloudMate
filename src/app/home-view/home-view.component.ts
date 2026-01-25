@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDivider} from '@angular/material/divider';
-import {SideNavigationBarComponent} from '../side-navigation-bar/side-navigation-bar.component';
-import {ExternalLinksPanelComponent} from '../external-links-panel/external-links-panel.component';
-import {ToolbarComponent} from '../toolbar/toolbar.component';
-import {FilePreviewComponent} from '../file-preview/file-preview.component';
-import {FileService} from '../file-card/file.service';
-import {MainContentComponent} from '../files-loading/components/main-content/main-content.component';
-import {SortingNavBar} from '../files-loading/components/sorting-nav-bar/sorting-nav-bar';
+import { Component } from '@angular/core';
+import { MatDivider } from '@angular/material/divider';
+import { SideNavigationBarComponent } from '../side-navigation-bar/side-navigation-bar.component';
+import { ExternalLinksPanelComponent } from '../external-links-panel/external-links-panel.component';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { FilePreviewComponent } from '../file-preview/file-preview.component';
+import { MainContentComponent } from '../files-loading/components/main-content/main-content.component';
+import { SortingNavBar } from '../files-loading/components/sorting-nav-bar/sorting-nav-bar';
 
 @Component({
   selector: 'app-home-view',
@@ -18,18 +17,10 @@ import {SortingNavBar} from '../files-loading/components/sorting-nav-bar/sorting
     ExternalLinksPanelComponent,
     ToolbarComponent,
     FilePreviewComponent,
-    MainContentComponent,
     SortingNavBar,
   ],
   templateUrl: './home-view.component.html',
-  styleUrl: './home-view.component.css'
+  styleUrls: ['./home-view.component.css']
 })
-export class HomeViewComponent implements OnInit {
-
-  constructor(private fileService: FileService) {
-  }
-
-  ngOnInit(): void {
-    this.fileService.initializeFiles();
-  }
+export class HomeViewComponent {
 }

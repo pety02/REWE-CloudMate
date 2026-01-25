@@ -61,34 +61,15 @@ export class FileCardComponent implements OnInit {
         result.updateUser = user.username;
         result.updateDate = new Date().toISOString();
         this.fileService.updateFile(result);
+        this.fileService.notifyFileChanged();
       }
     });
   }
 
   onDelete(file: FileItem): void {
-    const stored = localStorage.getItem('files');
-    if (!stored) return;
-
-    const data = JSON.parse(stored);
-
-    const fileKey = `${file.name}.${file.extension}`;
-
-    data.files = data.files.filter(
-      (f: FileItem) =>
-        !(f.name === file.name && f.extension === file.extension)
-    );
-
-    Object.keys(data.userFiles).forEach(username => {
-      data.userFiles[username] =
-        data.userFiles[username].filter((f: string) => f !== fileKey);
-    });
-
-    localStorage.setItem('files', JSON.stringify(data));
-
-    console.log('Deleted file:', fileKey);
-
+    this.fileService.deleteFile(file);
+    this.fileService.notifyFileChanged();
     this.delete.emit(file);
-    this.router.navigate(['/home']);
   }
 
   onShare(file: FileItem): void {
