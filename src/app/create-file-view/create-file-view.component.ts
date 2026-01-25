@@ -25,7 +25,10 @@ import {MatIcon} from '@angular/material/icon';
     MatButton,
     MatCardContent
   ],
-  styleUrls: ['./create-file-view.component.css']
+  styleUrls: [
+    './create-file-view.component.css',
+    '../../styles/upload-edit-file/shared-style.css'
+  ]
 })
 export class CreateFileViewComponent implements OnInit {
   fileForm!: FormGroup;
