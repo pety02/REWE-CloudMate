@@ -4,6 +4,9 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {FileSortService} from '../../../../services/file-sort.service';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-sorting-nav-bar',
   standalone: true,
@@ -20,9 +23,17 @@ export class SortingNavBarComponent {
   sortDirection: 'asc' | 'desc' = 'asc';
   activeSort: 'title' | 'size' | 'createdAt' | 'updatedAt' = 'title';
 
+  /**
+   *
+   * @param fileSortService
+   */
   constructor(private fileSortService: FileSortService) {
   }
 
+  /**
+   *
+   * @param sortKey
+   */
   onSortClick(sortKey: typeof this.activeSort) {
     if (this.activeSort === sortKey) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
@@ -32,6 +43,9 @@ export class SortingNavBarComponent {
     }
   }
 
+  /**
+   *
+   */
   applySort() {
     this.fileSortService.setSort(this.activeSort, this.sortDirection);
   }

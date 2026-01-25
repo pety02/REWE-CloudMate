@@ -5,6 +5,9 @@ import { FileService } from '../../../../services/file.service';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import {FileSortService} from '../../../../services/file-sort.service';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-main-content',
   standalone: true,
@@ -19,11 +22,19 @@ import {FileSortService} from '../../../../services/file-sort.service';
 export class MainContentComponent implements OnInit {
   files: FileItem[] = [];
 
+  /**
+   *
+   * @param fileService
+   * @param fileSortService
+   */
   constructor(
     private fileService: FileService,
     private fileSortService: FileSortService
   ) {}
 
+  /**
+   *
+   */
   ngOnInit(): void {
     this.loadFiles();
 
@@ -33,6 +44,9 @@ export class MainContentComponent implements OnInit {
     this.fileService.getSearchQuery().subscribe(() => this.loadFiles());
   }
 
+  /**
+   *
+   */
   loadFiles(): void {
     const storedUser = localStorage.getItem('loggedInUser');
     if (!storedUser) {
@@ -88,6 +102,9 @@ export class MainContentComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   */
   onFileDeleted(): void {
     this.loadFiles();
   }

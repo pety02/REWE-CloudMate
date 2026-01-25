@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-file-preview',
   imports: [
@@ -16,6 +19,9 @@ import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 })
 export class FilePreviewComponent {
 
+  /**
+   *
+   */
   updateContent(): string {
     return localStorage.getItem('currentFileContent') || '';
   }

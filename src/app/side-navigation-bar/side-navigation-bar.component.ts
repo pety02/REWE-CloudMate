@@ -7,6 +7,9 @@ import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/cre
 import {FileItem} from '../../models/file-item.model';
 import {FileService} from '../../services/file.service';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-side-navigation-bar',
   standalone: true,
@@ -21,9 +24,18 @@ import {FileService} from '../../services/file.service';
   styleUrl: './side-navigation-bar.component.css'
 })
 export class SideNavigationBarComponent {
+
+  /**
+   *
+   * @param dialog
+   * @param fileService
+   */
   constructor(private dialog: MatDialog, private fileService: FileService) {
   }
 
+  /**
+   *
+   */
   onUpload(): void {
     const user = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
     const newFile: FileItem = {
@@ -50,10 +62,16 @@ export class SideNavigationBarComponent {
     });
   }
 
+  /**
+   *
+   */
   onHome(): void {
     this.fileService.setViewMode('home');
   }
 
+  /**
+   *
+   */
   onShared(): void {
     this.fileService.setViewMode('shared');
   }

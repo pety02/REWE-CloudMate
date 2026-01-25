@@ -14,6 +14,9 @@ import {StoredData} from '../../models/stored-data.model';
 import {NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-share-file',
   standalone: true,
@@ -41,6 +44,12 @@ import {MatIcon} from '@angular/material/icon';
 export class ShareFileComponent {
   shareForm: FormGroup;
 
+  /**
+   *
+   * @param fb
+   * @param dialogRef
+   * @param item
+   */
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ShareFileComponent>,
@@ -51,10 +60,16 @@ export class ShareFileComponent {
     });
   }
 
+  /**
+   *
+   */
   get usernameCtrl() {
     return this.shareForm.get('username')!;
   }
 
+  /**
+   *
+   */
   onSubmit(): void {
     if (this.shareForm.invalid) return;
 
@@ -76,6 +91,12 @@ export class ShareFileComponent {
     this.dialogRef.close(true);
   }
 
+  /**
+   *
+   * @param data
+   * @param username
+   * @private
+   */
   private shareFileWithUser(data: StoredData, username: string): void {
     const fileKey = `${this.item.name}.${this.item.extension}`;
 
@@ -90,6 +111,10 @@ export class ShareFileComponent {
     localStorage.setItem('storedData', JSON.stringify(data));
   }
 
+  /**
+   *
+   * @private
+   */
   private getStoredData(): StoredData {
     const raw = localStorage.getItem('files');
 
@@ -100,6 +125,9 @@ export class ShareFileComponent {
     return JSON.parse(raw) as StoredData;
   }
 
+  /**
+   *
+   */
   closeFile(): void {
     this.dialogRef.close();
   }
