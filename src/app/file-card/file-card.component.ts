@@ -37,7 +37,7 @@ export class FileCardComponent implements OnInit {
 
   @Output() delete = new EventEmitter<FileItem>();
 
-  constructor(private dialog: MatDialog, private router: Router, private datePipe: DatePipe, private fileService: FileService) {}
+  constructor(private dialog: MatDialog, private datePipe: DatePipe, private fileService: FileService) {}
 
   ngOnInit(): void {}
 

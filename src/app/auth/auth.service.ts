@@ -8,7 +8,7 @@ export class AuthService {
   private storageKey = 'users';
 
   constructor(private http: HttpClient) {
-    this.initializeUsers();
+    this.initializeUsers().then(r => r);
   }
 
   private async initializeUsers() {

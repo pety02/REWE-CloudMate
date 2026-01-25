@@ -35,6 +35,6 @@ export class ToolbarComponent {
     localStorage.removeItem('sharedFile');
     localStorage.removeItem('sortedFiles');
 
-    this.router.navigate(['']);
+    this.router.navigate(['']).then(p => p);
   }
 }

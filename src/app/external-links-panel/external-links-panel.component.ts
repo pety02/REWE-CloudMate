@@ -1,15 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 import {NgForOf, NgIf} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-external-links-panel',
   imports: [
-    MatFormField,
-    MatInput,
-    MatLabel,
-    MatFormField,
     NgIf,
     NgForOf
   ],
