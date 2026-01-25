@@ -83,6 +83,6 @@ export class LoginCardComponent implements OnInit {
     localStorage.setItem('loggedInUser', JSON.stringify({ username }));
     (document.activeElement as HTMLElement)?.blur();
     this.loginForm.reset();
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home']).then(r => r);
   }
 }
