@@ -3,10 +3,6 @@
   transition: width 160ms;
 }
 
-.box1{
-  width: 4rem;
-}
-
 .mat-drawer-container, .mat-drawer-sidenav{
   width: 4rem;
 }

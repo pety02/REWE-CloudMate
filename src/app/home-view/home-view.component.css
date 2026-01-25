@@ -3,38 +3,38 @@
   height: 42.875rem;
 }
 
-.box1 {
+.side-nav {
   height: 100%;
   text-align: center;
 }
 
-.box2 {
+.main-view {
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.box2-files {
+.main-view-files {
   height: 70%;
   overflow-y: auto;
 }
 
-.box2 > mat-divider {
+.main-view > mat-divider {
   margin: 0;
 }
 
-.box2-content {
+.main-view-content {
   display: flex;
   height: 30%;
 }
 
-.box2-info {
+.main-view-info {
   width: 70%;
   margin-right: 0.5rem;
 }
 
-.box2-ext-links {
+.main-view-external-links {
   width: 30%;
   margin-left: 0.5rem;
 }
