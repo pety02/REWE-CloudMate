@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {OpenedFileFullPreviewComponent} from '../opened-file-full-preview/opened-file-full-preview.component';
 import {Router} from '@angular/router';
 import {ShareFileComponent} from '../share-file/share-file.component';
+import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/create-or-update-file-view.component';
 
 @Component({
   selector: 'app-file-card',
@@ -49,7 +50,23 @@ export class FileCardComponent implements OnInit {
   }
 
   onUpdate(file: FileItem): void {
-    console.log('Update', file);
+    const storedUser = localStorage.getItem('loggedInUser');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+
+    this.dialog.open(CreateOrUpdateFileViewComponent, {
+      data: {
+        mode: 'edit',
+        file: {
+          ...file,
+          updateUser: user?.username ?? ''
+        }
+      }
+    }).afterClosed().subscribe(updatedFile => {
+      if (!updatedFile) return;
+
+      console.log('Updated file:', updatedFile);
+      // persist changes here
+    });
   }
 
   onDelete(file: FileItem): void {

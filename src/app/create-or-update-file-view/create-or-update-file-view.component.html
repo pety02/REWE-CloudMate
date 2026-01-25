@@ -1,8 +1,10 @@
-<mat-card class="upload-card">
-  <mat-card-header class="card-header">
-    <mat-card-title>Upload File</mat-card-title>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      {{ isEdit ? 'Edit File' : 'Upload File' }}
+    </mat-card-title>
     <span class="spacer"></span>
-    <button mat-icon-button aria-label="Close">
+    <button mat-icon-button (click)="onCancel()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-header>
@@ -58,11 +60,11 @@
       </div>
 
       <mat-card-actions align="end">
+        <button mat-button (click)="onCancel()">Cancel</button>
         <button mat-flat-button color="primary" type="submit">
-          Save
+          {{ isEdit ? 'Update' : 'Save' }}
         </button>
       </mat-card-actions>
-
     </form>
   </mat-card-content>
 </mat-card>
