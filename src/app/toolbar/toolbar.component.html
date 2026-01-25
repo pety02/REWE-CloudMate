@@ -1,5 +1,6 @@
 <mat-toolbar color="surface" class="app-toolbar">
-  <button mat-icon-button aria-label="REWE Cloud Mate logo icon">
+  <button matTooltip="Logout" matTooltipPosition="below"
+          mat-icon-button aria-label="REWE Cloud Mate logo icon" (click)="logout()">
     <mat-icon>
       <img src="/cloud.ico" alt="REWE Cloud Mate logo icon"/>
     </mat-icon>
