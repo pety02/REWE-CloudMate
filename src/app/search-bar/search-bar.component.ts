@@ -32,7 +32,7 @@ export class SearchBarComponent {
   constructor() {
     this.searchCtrl.valueChanges
       .pipe(
-        debounceTime(3000),
+        debounceTime(1000),
         distinctUntilChanged()
       )
       .subscribe(value => {

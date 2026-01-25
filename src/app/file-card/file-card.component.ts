@@ -10,6 +10,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {OpenedFileFullPreviewComponent} from '../opened-file-full-preview/opened-file-full-preview.component';
 import {Router} from '@angular/router';
 import {ShareFileComponent} from '../share-file/share-file.component';
+import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/create-or-update-file-view.component';
+import {FileService} from './file.service';
 
 @Component({
   selector: 'app-file-card',
@@ -35,7 +37,7 @@ export class FileCardComponent implements OnInit {
 
   @Output() delete = new EventEmitter<FileItem>();
 
-  constructor(private dialog: MatDialog, private router: Router, private datePipe: DatePipe) {}
+  constructor(private dialog: MatDialog, private router: Router, private datePipe: DatePipe, private fileService: FileService) {}
 
   ngOnInit(): void {}
 
@@ -49,33 +51,25 @@ export class FileCardComponent implements OnInit {
   }
 
   onUpdate(file: FileItem): void {
-    console.log('Update', file);
+    const user = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
+    const dialogRef = this.dialog.open(CreateOrUpdateFileViewComponent, {
+      data: { file, mode: 'edit' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        result.updateUser = user.username;
+        result.updateDate = new Date().toISOString();
+        this.fileService.updateFile(result);
+        this.fileService.notifyFileChanged();
+      }
+    });
   }
 
   onDelete(file: FileItem): void {
-    const stored = localStorage.getItem('files');
-    if (!stored) return;
-
-    const data = JSON.parse(stored);
-
-    const fileKey = `${file.name}.${file.extension}`;
-
-    data.files = data.files.filter(
-      (f: FileItem) =>
-        !(f.name === file.name && f.extension === file.extension)
-    );
-
-    Object.keys(data.userFiles).forEach(username => {
-      data.userFiles[username] =
-        data.userFiles[username].filter((f: string) => f !== fileKey);
-    });
-
-    localStorage.setItem('files', JSON.stringify(data));
-
-    console.log('Deleted file:', fileKey);
-
+    this.fileService.deleteFile(file);
+    this.fileService.notifyFileChanged();
     this.delete.emit(file);
-    this.router.navigate(['/home']);
   }
 
   onShare(file: FileItem): void {

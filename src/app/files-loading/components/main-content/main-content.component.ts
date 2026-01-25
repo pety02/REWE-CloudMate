@@ -3,7 +3,7 @@ import { FileCardComponent } from '../../../file-card/file-card.component';
 import { FileItem } from '../../../file-card/models/file-item.model';
 import { FileService } from '../../../file-card/file.service';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
-import {FileSortService} from '../../services/file-sort.service';
+import {FileSortService} from '../../file-sort.service';
 
 @Component({
   selector: 'app-main-content',
@@ -34,6 +34,10 @@ export class MainContentComponent implements OnInit {
     this.fileService.getSearchQuery().subscribe(() => {
       this.loadFiles();
     });
+
+    this.fileService.fileChanged$.subscribe(() => {
+      this.loadFiles();
+    });
   }
 
   loadFiles(): void {
@@ -44,18 +48,9 @@ export class MainContentComponent implements OnInit {
     }
 
     const { username } = JSON.parse(storedUser);
-    const query = this.fileService.getCurrentSearchQuery(); // clean access
+    const query = this.fileService.getCurrentSearchQuery();
 
-    let files: FileItem[] = [];
-
-    const sortedRaw = localStorage.getItem('sortedFiles');
-    if (sortedRaw) {
-      files = JSON.parse(sortedRaw) as FileItem[];
-    } else {
-      files = this.fileService.getFiles(username);
-    }
-
-    files = files.filter(file => file.createUser === username);
+    let files = this.fileService.getFiles(username);
 
     if (query) {
       const q = query.toLowerCase();
@@ -68,7 +63,7 @@ export class MainContentComponent implements OnInit {
     this.files = files;
   }
 
-  onFileDeleted(file: FileItem): void {
+  onFileDeleted(): void {
     this.loadFiles();
   }
 }
