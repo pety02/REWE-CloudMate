@@ -27,17 +27,10 @@ export class MainContentComponent implements OnInit {
   ngOnInit(): void {
     this.loadFiles();
 
-    this.fileSortService.sortChanged$.subscribe(() => {
-      this.loadFiles();
-    });
-
-    this.fileService.getSearchQuery().subscribe(() => {
-      this.loadFiles();
-    });
-
-    this.fileService.fileChanged$.subscribe(() => {
-      this.loadFiles();
-    });
+    this.fileService.viewModeObservable$.subscribe(() => this.loadFiles());
+    this.fileService.fileChanged$.subscribe(() => this.loadFiles());
+    this.fileSortService.sortChanged$.subscribe(() => this.loadFiles());
+    this.fileService.getSearchQuery().subscribe(() => this.loadFiles());
   }
 
   loadFiles(): void {
@@ -48,9 +41,13 @@ export class MainContentComponent implements OnInit {
     }
 
     const { username } = JSON.parse(storedUser);
+    const mode = this.fileService.getCurrentViewMode();
     const query = this.fileService.getCurrentSearchQuery();
 
-    let files = this.fileService.getFiles(username);
+    let files =
+      mode === 'home'
+        ? this.fileService.getFiles(username)
+        : this.fileService.getSharedFiles(username);
 
     if (query) {
       const q = query.toLowerCase();
@@ -60,7 +57,35 @@ export class MainContentComponent implements OnInit {
       );
     }
 
-    this.files = files;
+    const { key, direction } = this.fileSortService.getSortState();
+
+    this.files = [...files].sort((a, b) => {
+      let result = 0;
+
+      switch (key) {
+        case 'title':
+          result = a.name.localeCompare(b.name);
+          break;
+
+        case 'size':
+          result = (a.size ?? 0) - (b.size ?? 0);
+          break;
+
+        case 'createdAt':
+          result =
+            new Date(a.createDate).getTime() -
+            new Date(b.createDate).getTime();
+          break;
+
+        case 'updatedAt':
+          result =
+            new Date(a.updateDate ?? 0).getTime() -
+            new Date(b.updateDate ?? 0).getTime();
+          break;
+      }
+
+      return direction === 'asc' ? result : -result;
+    });
   }
 
   onFileDeleted(): void {

@@ -1,7 +1,9 @@
 import {FileItem} from './models/file-item.model';
 import {StoredData} from '../files-loading/models/StoredData.model';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {BehaviorSubject, firstValueFrom, Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
+import {User} from '../auth/models/user.model';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +13,31 @@ export class FileService {
   private fileChanged = new Subject<void>();
   fileChanged$ = this.fileChanged.asObservable();
 
+  private viewMode$ = new BehaviorSubject<'home' | 'shared'>('home');
+  viewModeObservable$ = this.viewMode$.asObservable();
+
   notifyFileChanged() {
     this.fileChanged.next();
   }
 
-  constructor() {}
+  setViewMode(mode: 'home' | 'shared') {
+    this.viewMode$.next(mode);
+  }
+
+  getCurrentViewMode(): 'home' | 'shared' {
+    return this.viewMode$.getValue();
+  }
+
+  constructor(private http: HttpClient) {
+    this.initializeFiles();
+  }
+
+  private async initializeFiles(): Promise<void> {
+    const mockUsers = await firstValueFrom(
+      this.http.get<StoredData>('/mock-files.json')
+    );
+    localStorage.setItem("storedData", JSON.stringify(mockUsers));
+  }
 
   setSearchQuery(query: string): void {
     this.searchQuery$.next(query.toLowerCase());
@@ -42,6 +64,12 @@ export class FileService {
     const data = this.getStoredData();
     const fileKeys = data.userFiles[username] || [];
     return data.files.filter(f => fileKeys.includes(`${f.name}.${f.extension}`));
+  }
+
+  getSharedFiles(username: string): FileItem[] {
+    const data = this.getStoredData();
+    const sharedKeys = data.sharedFiles?.[username] || [];
+    return data.files.filter(f => sharedKeys.includes(`${f.name}.${f.extension}`));
   }
 
   addFile(newFile: FileItem) {
@@ -85,6 +113,16 @@ export class FileService {
     data.userFiles[updatedFile.createUser].push(newKey);
 
     this.saveStoredData(data);
+  }
+
+  shareFile(file: FileItem, username: string) {
+    const data = this.getStoredData();
+    const key = `${file.name}.${file.extension}`;
+    if (!data.sharedFiles) data.sharedFiles = {};
+    if (!data.sharedFiles[username]) data.sharedFiles[username] = [];
+    if (!data.sharedFiles[username].includes(key)) data.sharedFiles[username].push(key);
+    this.saveStoredData(data);
+    this.notifyFileChanged();
   }
 
   deleteFile(file: FileItem) {

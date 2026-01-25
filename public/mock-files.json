@@ -116,5 +116,12 @@
     "hannah.w": ["app_icon.svg"],
     "ivan007": ["database_schema.sql"],
     "juliaX": ["team_photo.jpg"]
+  },
+  "sharedFiles": {
+    "bob_smith": ["project_plan.pdf", "presentation_q1.pptx"],
+    "charlie99": ["server_logs.log", "requirements.txt"],
+    "diana.k": ["team_photo.jpg", "app_icon.svg"],
+    "fiona_88": ["database_schema.sql"],
+    "alice42": ["user_manual.pdf"]
   }
 }

@@ -1,4 +1,4 @@
-import {FileItem} from '../../file-card/models/file-item.model';
+import {FileItem} from './file-item.model';
 
 export interface StoredData {
   users: { username: string; password: string }[];
