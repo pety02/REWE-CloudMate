@@ -8,6 +8,9 @@ import {MatIcon} from '@angular/material/icon';
 import {FileSizePipe} from '../file-card/pipes/file-size.pipe';
 import {DatePipe} from '@angular/common';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-opened-file-full-preview',
   templateUrl: './opened-file-full-preview.component.html',
@@ -31,11 +34,19 @@ import {DatePipe} from '@angular/common';
 })
 export class OpenedFileFullPreviewComponent {
 
+  /**
+   *
+   * @param dialogRef
+   * @param item
+   */
   constructor(
     public dialogRef: MatDialogRef<OpenedFileFullPreviewComponent>,
     @Inject(MAT_DIALOG_DATA) public item: FileItem
   ) {}
 
+  /**
+   *
+   */
   closeFile(): void {
     this.dialogRef.close();
   }

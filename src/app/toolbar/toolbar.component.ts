@@ -6,7 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import {FileService} from '../../services/file.service';
 import {MatTooltip} from '@angular/material/tooltip';
 import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-toolbar',
   standalone: true,
@@ -21,20 +25,27 @@ import {Router} from '@angular/router';
   styleUrl: './toolbar.component.css'
 })
 export class ToolbarComponent {
-  constructor(private fileService: FileService, private router: Router) {}
 
+  /**
+   *
+   * @param fileService
+   * @param router
+   */
+  constructor(private fileService: FileService, private router: Router, private authService: AuthService) {}
+
+  /**
+   *
+   * @param query
+   */
   onSearch(query: string): void {
     this.fileService.setSearchQuery(query);
     console.log('Searching for:', query);
   }
 
+  /**
+   *
+   */
   logout(): void {
-    localStorage.removeItem('loggedInUser');
-    localStorage.removeItem('currentFileContent');
-    localStorage.removeItem('openedFile');
-    localStorage.removeItem('sharedFile');
-    localStorage.removeItem('sortedFiles');
-
-    this.router.navigate(['']).then(p => p);
+    this.authService.logout(this.router);
   }
 }

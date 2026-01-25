@@ -6,6 +6,9 @@ import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/inpu
 import {MatButton} from '@angular/material/button';
 import {NgIf} from '@angular/common';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-register-card',
   standalone: true,
@@ -32,11 +35,19 @@ export class RegisterCardComponent implements OnInit {
   @Output() registered = new EventEmitter<void>();
   errorMessage: string | null = null;
 
+  /**
+   *
+   * @param fb
+   * @param auth
+   */
   constructor(
     private fb: FormBuilder,
     private auth: AuthService
   ) {}
 
+  /**
+   *
+   */
   ngOnInit(): void {
     this.registerForm = this.fb.group(
       {
@@ -73,12 +84,20 @@ export class RegisterCardComponent implements OnInit {
     );
   }
 
+  /**
+   *
+   * @param form
+   * @private
+   */
   private passwordsMatchValidator(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirm = form.get('confirmedPassword')?.value;
     return password === confirm ? null : { passwordsMismatch: true };
   }
 
+  /**
+   *
+   */
   register(): void {
     this.errorMessage = null;
 

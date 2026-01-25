@@ -4,6 +4,9 @@ import {BehaviorSubject, firstValueFrom, Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
+/**
+ *
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -15,22 +18,40 @@ export class FileService {
   private viewMode$ = new BehaviorSubject<'home' | 'shared'>('home');
   viewModeObservable$ = this.viewMode$.asObservable();
 
+  /**
+   *
+   */
   notifyFileChanged() {
     this.fileChanged.next();
   }
 
+  /**
+   *
+   * @param mode
+   */
   setViewMode(mode: 'home' | 'shared') {
     this.viewMode$.next(mode);
   }
 
+  /**
+   *
+   */
   getCurrentViewMode(): 'home' | 'shared' {
     return this.viewMode$.getValue();
   }
 
+  /**
+   *
+   * @param http
+   */
   constructor(private http: HttpClient) {
     this.initializeFiles().then(f => f);
   }
 
+  /**
+   *
+   * @private
+   */
   private async initializeFiles(): Promise<void> {
     const mockUsers = await firstValueFrom(
       this.http.get<StoredData>('/mock-files.json')
@@ -38,39 +59,68 @@ export class FileService {
     localStorage.setItem("storedData", JSON.stringify(mockUsers));
   }
 
+  /**
+   *
+   * @param query
+   */
   setSearchQuery(query: string): void {
     this.searchQuery$.next(query.toLowerCase());
   }
 
+  /**
+   *
+   */
   getSearchQuery() {
     return this.searchQuery$.asObservable();
   }
 
+  /**
+   *
+   */
   getCurrentSearchQuery(): string {
     return this.searchQuery$.value;
   }
 
+  /**
+   *
+   */
   getStoredData(): StoredData {
     const stored = localStorage.getItem('storedData');
     return stored ? JSON.parse(stored) : { users: [], files: [], userFiles: {} };
   }
 
+  /**
+   *
+   * @param data
+   */
   saveStoredData(data: StoredData): void {
     localStorage.setItem('storedData', JSON.stringify(data));
   }
 
+  /**
+   *
+   * @param username
+   */
   getFiles(username: string): FileItem[] {
     const data = this.getStoredData();
     const fileKeys = data.userFiles[username] || [];
     return data.files.filter(f => fileKeys.includes(`${f.name}.${f.extension}`));
   }
 
+  /**
+   *
+   * @param username
+   */
   getSharedFiles(username: string): FileItem[] {
     const data = this.getStoredData();
     const sharedKeys = data.sharedFiles?.[username] || [];
     return data.files.filter(f => sharedKeys.includes(`${f.name}.${f.extension}`));
   }
 
+  /**
+   *
+   * @param newFile
+   */
   addFile(newFile: FileItem) {
     const data = this.getStoredData();
 
@@ -87,6 +137,10 @@ export class FileService {
     this.saveStoredData(data);
   }
 
+  /**
+   *
+   * @param updatedFile
+   */
   updateFile(updatedFile: FileItem) {
     const data = this.getStoredData();
     const fileKeyOld = `${updatedFile.name}.${updatedFile.extension}`;
@@ -114,6 +168,10 @@ export class FileService {
     this.saveStoredData(data);
   }
 
+  /**
+   *
+   * @param file
+   */
   deleteFile(file: FileItem) {
     const data = this.getStoredData();
     const fileKey = `${file.name}.${file.extension}`;

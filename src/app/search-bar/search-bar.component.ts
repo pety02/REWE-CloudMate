@@ -10,6 +10,9 @@ import {
 } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-search-bar',
   standalone: true,
@@ -27,8 +30,14 @@ import { MatIcon } from '@angular/material/icon';
 export class SearchBarComponent {
   @Output() search = new EventEmitter<string>();
 
+  /**
+   *
+   */
   searchCtrl = new FormControl('');
 
+  /**
+   *
+   */
   constructor() {
     this.searchCtrl.valueChanges
       .pipe(

@@ -9,6 +9,9 @@ import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
 import {NgIf} from '@angular/common';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-create-or-update-file',
   standalone: true,
@@ -35,12 +38,21 @@ export class CreateOrUpdateFileViewComponent implements OnInit {
   selectedFileName = '';
   isEdit = false;
 
+  /**
+   *
+   * @param fb
+   * @param dialogRef
+   * @param data
+   */
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CreateOrUpdateFileViewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: FileDialogData
   ) {}
 
+  /**
+   *
+   */
   ngOnInit(): void {
     this.isEdit = this.data.mode === 'edit';
 
@@ -65,6 +77,10 @@ export class CreateOrUpdateFileViewComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * @param event
+   */
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
@@ -87,6 +103,9 @@ export class CreateOrUpdateFileViewComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+  /**
+   *
+   */
   onSubmit(): void {
     if (this.fileForm.invalid) return;
 

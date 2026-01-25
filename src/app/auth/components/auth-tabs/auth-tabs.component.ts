@@ -5,6 +5,9 @@ import { LoginCardComponent } from '../login-card/login-card.component';
 import { RegisterCardComponent } from '../register-card/register-card.component';
 import {AuthService} from '../../../../services/auth.service';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-auth-tabs',
   standalone: true,
@@ -21,17 +24,30 @@ import {AuthService} from '../../../../services/auth.service';
 export class AuthTabsComponent implements OnInit {
   selectedTabIndex = 0;
 
+  /**
+   *
+   */
   goToLogin(): void {
     this.selectedTabIndex = 0;
   }
 
+  /**
+   *
+   * @param authService
+   */
   constructor(private authService: AuthService) {
   }
 
+  /**
+   *
+   */
   ngOnInit(): void {
     this.initializeUsers();
   }
 
+  /**
+   *
+   */
   initializeUsers(): void {
     const users = localStorage.getItem('users');
     if (!users) {
