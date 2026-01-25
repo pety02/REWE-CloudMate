@@ -45,8 +45,16 @@ export class SideNavigationBarComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fileService.addFile(result);
-        this.fileService.notifyFileChanged(); // ✅ after file is added
+        this.fileService.notifyFileChanged();
       }
     });
+  }
+
+  onHome(): void {
+    this.fileService.setViewMode('home');
+  }
+
+  onShared(): void {
+    this.fileService.setViewMode('shared');
   }
 }

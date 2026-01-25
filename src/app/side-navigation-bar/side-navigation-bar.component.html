@@ -1,8 +1,8 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
   <mat-drawer #drawer mode="push" class="mat-drawer-sidenav">
     <div class="menu">
-      <button mat-flat-button>Home</button>
-      <button mat-flat-button>Shared</button>
+      <button mat-flat-button (click)="onHome()">Home</button>
+      <button mat-flat-button (click)="onShared()">Shared</button>
       <button mat-flat-button (click)="onUpload()">Upload</button>
     </div>
   </mat-drawer>

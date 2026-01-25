@@ -14,10 +14,10 @@ import {FileSortService} from '../../file-sort.service';
     MatIcon,
     MatButton,
   ],
-  templateUrl: './sorting-nav-bar.html',
-  styleUrl: './sorting-nav-bar.css'
+  templateUrl: './sorting-nav-bar.component.html',
+  styleUrl: './sorting-nav-bar.component.css'
 })
-export class SortingNavBar {
+export class SortingNavBarComponent {
   sortDirection: 'asc' | 'desc' = 'asc';
   activeSort: 'title' | 'size' | 'createdAt' | 'updatedAt' = 'title';
 
@@ -34,7 +34,7 @@ export class SortingNavBar {
   }
 
   private getStoredFiles(): any[] {
-    const raw = localStorage.getItem('files');
+    const raw = localStorage.getItem('storedData');
 
     if (!raw) {
       return [];
@@ -166,17 +166,6 @@ export class SortingNavBar {
   }
 
   applySort() {
-    console.log('Sorting by:', this.activeSort, this.sortDirection);
-    if(this.activeSort === 'title') {
-      this.applyTitleSort();
-    } else if (this.activeSort === 'size') {
-      this.applySizeSort();
-    } else if (this.activeSort === 'createdAt') {
-      this.applyCreatedAtSort();
-    } else {
-      this.applyUpdatedAtSort();
-    }
-
-    this.fileSortService.notifySortChanged();
+    this.fileSortService.setSort(this.activeSort, this.sortDirection);
   }
 }

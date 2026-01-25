@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SortingNavBar } from './sorting-nav-bar';
+import { SortingNavBarComponent } from './sorting-nav-bar.component';
 
-describe('SortingNavBar', () => {
-  let component: SortingNavBar;
-  let fixture: ComponentFixture<SortingNavBar>;
+describe('SortingNavBarComponent', () => {
+  let component: SortingNavBarComponent;
+  let fixture: ComponentFixture<SortingNavBarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SortingNavBar]
+      imports: [SortingNavBarComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SortingNavBar);
+    fixture = TestBed.createComponent(SortingNavBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

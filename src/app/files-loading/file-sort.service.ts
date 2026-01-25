@@ -1,16 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
+export type SortKey = 'title' | 'size' | 'createdAt' | 'updatedAt';
+export type SortDirection = 'asc' | 'desc';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileSortService {
-  // Observable stream for sort changes
-  private sortChanged = new Subject<void>();
-  sortChanged$ = this.sortChanged.asObservable();
+  private sortState$ = new BehaviorSubject<{
+    key: SortKey;
+    direction: SortDirection;
+  }>({
+    key: 'title',
+    direction: 'asc'
+  });
 
-  // Call this method whenever the sort changes
-  notifySortChanged() {
-    this.sortChanged.next();
+  sortChanged$ = this.sortState$.asObservable();
+
+  setSort(key: SortKey, direction: SortDirection) {
+    this.sortState$.next({ key, direction });
+  }
+
+  getSortState() {
+    return this.sortState$.getValue();
   }
 }

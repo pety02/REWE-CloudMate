@@ -5,7 +5,7 @@ import { ExternalLinksPanelComponent } from '../external-links-panel/external-li
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { FilePreviewComponent } from '../file-preview/file-preview.component';
 import { MainContentComponent } from '../files-loading/components/main-content/main-content.component';
-import { SortingNavBar } from '../files-loading/components/sorting-nav-bar/sorting-nav-bar';
+import { SortingNavBarComponent } from '../files-loading/components/sorting-nav-bar/sorting-nav-bar.component';
 
 @Component({
   selector: 'app-home-view',
@@ -17,7 +17,7 @@ import { SortingNavBar } from '../files-loading/components/sorting-nav-bar/sorti
     ExternalLinksPanelComponent,
     ToolbarComponent,
     FilePreviewComponent,
-    SortingNavBar,
+    SortingNavBarComponent,
   ],
   templateUrl: './home-view.component.html',
   styleUrls: ['./home-view.component.css']
