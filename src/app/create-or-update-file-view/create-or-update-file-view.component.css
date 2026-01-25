@@ -64,3 +64,9 @@ mat-card-actions button {
     grid-template-columns: 1fr;
   }
 }
+
+.warning-message{
+  color: red;
+  display: block;
+  margin-bottom: 8px;
+}

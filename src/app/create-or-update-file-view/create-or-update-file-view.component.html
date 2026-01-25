@@ -16,7 +16,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Filename</mat-label>
-          <input matInput formControlName="name" />
+          <input matInput formControlName="name" [readonly]="this.isEdit"/>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -25,6 +25,9 @@
         </mat-form-field>
 
         <!-- Material-style file picker -->
+        <span *ngIf="isEdit" class="full-width warning-message">
+            You can only update the file from the file input.
+        </span>
         <div class="file-picker full-width">
           <input
             type="file"

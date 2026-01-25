@@ -7,6 +7,7 @@ import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} fr
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-create-or-update-file',
@@ -24,7 +25,8 @@ import {MatIcon} from '@angular/material/icon';
     MatLabel,
     MatInput,
     MatCardActions,
-    MatButton
+    MatButton,
+    NgIf
   ],
   styleUrl: './create-or-update-file-view.component.css'
 })
