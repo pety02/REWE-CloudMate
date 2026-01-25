@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {firstValueFrom} from 'rxjs';
-import {User} from './models/user.model';
+import {User} from '../models/user.model';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
   private storageKey = 'users';
 
   constructor(private http: HttpClient) {
-    this.initializeUsers();
+    this.initializeUsers().then(r => r);
   }
 
   private async initializeUsers() {

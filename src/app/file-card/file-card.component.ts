@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {MatButton, MatIconButton} from '@angular/material/button';
-import {FileItem} from './models/file-item.model';
+import {FileItem} from '../../models/file-item.model';
 import {MatIcon} from '@angular/material/icon';
 import {FileSizePipe} from './pipes/file-size.pipe';
 import {MatTooltip} from '@angular/material/tooltip';
@@ -11,7 +11,7 @@ import {OpenedFileFullPreviewComponent} from '../opened-file-full-preview/opened
 import {Router} from '@angular/router';
 import {ShareFileComponent} from '../share-file/share-file.component';
 import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/create-or-update-file-view.component';
-import {FileService} from './file.service';
+import {FileService} from '../../services/file.service';
 
 @Component({
   selector: 'app-file-card',
@@ -37,7 +37,7 @@ export class FileCardComponent implements OnInit {
 
   @Output() delete = new EventEmitter<FileItem>();
 
-  constructor(private dialog: MatDialog, private router: Router, private datePipe: DatePipe, private fileService: FileService) {}
+  constructor(private dialog: MatDialog, private datePipe: DatePipe, private fileService: FileService) {}
 
   ngOnInit(): void {}
 

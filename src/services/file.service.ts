@@ -1,8 +1,7 @@
-import {FileItem} from './models/file-item.model';
-import {StoredData} from '../files-loading/models/StoredData.model';
+import {FileItem} from '../models/file-item.model';
+import {StoredData} from '../models/stored-data.model';
 import {BehaviorSubject, firstValueFrom, Subject} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {User} from '../auth/models/user.model';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -29,7 +28,7 @@ export class FileService {
   }
 
   constructor(private http: HttpClient) {
-    this.initializeFiles();
+    this.initializeFiles().then(f => f);
   }
 
   private async initializeFiles(): Promise<void> {
@@ -113,16 +112,6 @@ export class FileService {
     data.userFiles[updatedFile.createUser].push(newKey);
 
     this.saveStoredData(data);
-  }
-
-  shareFile(file: FileItem, username: string) {
-    const data = this.getStoredData();
-    const key = `${file.name}.${file.extension}`;
-    if (!data.sharedFiles) data.sharedFiles = {};
-    if (!data.sharedFiles[username]) data.sharedFiles[username] = [];
-    if (!data.sharedFiles[username].includes(key)) data.sharedFiles[username].push(key);
-    this.saveStoredData(data);
-    this.notifyFileChanged();
   }
 
   deleteFile(file: FileItem) {

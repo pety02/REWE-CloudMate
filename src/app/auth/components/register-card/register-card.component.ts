@@ -1,9 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from '../../auth.service';
+import {AuthService} from '../../../../services/auth.service';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
-import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-register-card',
@@ -16,7 +17,9 @@ import {MatButton} from '@angular/material/button';
     MatInput,
     MatButton,
     MatFormField,
-    MatCard
+    MatCard,
+    MatError,
+    NgIf
   ],
   templateUrl: 'register-card.component.html',
   styleUrls: [
@@ -27,39 +30,77 @@ import {MatButton} from '@angular/material/button';
 export class RegisterCardComponent implements OnInit {
   registerForm!: FormGroup;
   @Output() registered = new EventEmitter<void>();
+  errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private auth: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmedPassword: ['', Validators.required],
-    });
+    this.registerForm = this.fb.group(
+      {
+        username: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(30),
+            Validators.pattern(
+              '^(?=.{3,30}$)[a-zA-Z0-9]([a-zA-Z0-9_.]*)[a-zA-Z0-9]$'
+            )
+          ]
+        ],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(32),
+            Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$')
+          ]
+        ],
+        confirmedPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(32)
+          ]
+        ]
+      },
+      { validators: this.passwordsMatchValidator }
+    );
+  }
+
+  private passwordsMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirm = form.get('confirmedPassword')?.value;
+    return password === confirm ? null : { passwordsMismatch: true };
   }
 
   register(): void {
+    this.errorMessage = null;
+
     if (this.registerForm.invalid) {
-      alert('Please fill all fields');
+      if (this.registerForm.hasError('passwordsMismatch')) {
+        this.errorMessage = 'Passwords do not match.';
+      } else {
+        this.errorMessage = 'Please fix the errors in the form.';
+      }
       return;
     }
 
-    const { username, password, confirmedPassword } = this.registerForm.value;
-
-    if (password !== confirmedPassword) {
-      alert('Passwords do not match');
-      return;
-    }
+    const { username, password } = this.registerForm.value;
 
     const success = this.auth.register({ username, password });
 
     if (!success) {
-      alert('Username already exists');
+      this.errorMessage = 'Username already exists.';
       return;
     }
 
     (document.activeElement as HTMLElement)?.blur();
-
     this.registerForm.reset();
     this.registered.emit();
   }
