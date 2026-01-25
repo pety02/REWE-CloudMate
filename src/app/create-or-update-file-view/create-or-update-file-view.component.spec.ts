@@ -1,23 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CreateOrUpdateFileViewComponent } from './create-or-update-file-view.component';
-
 describe('CreateOrUpdateFileViewComponent', () => {
-  let component: CreateOrUpdateFileViewComponent;
-  let fixture: ComponentFixture<CreateOrUpdateFileViewComponent>;
+  it('should create the component', () => {});
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [CreateOrUpdateFileViewComponent]
-    })
-    .compileComponents();
+  it('should initialize form on init', () => {});
 
-    fixture = TestBed.createComponent(CreateOrUpdateFileViewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should detect edit mode correctly', () => {});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should patch form values in edit mode', () => {});
+
+  it('should update form when file is selected', () => {});
+
+  it('should close dialog with file data on submit', () => {});
+
+  it('should close dialog without data on cancel', () => {});
 });

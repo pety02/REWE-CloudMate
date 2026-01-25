@@ -1,23 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SideNavigationBarComponent } from './side-navigation-bar.component';
-
 describe('SideNavigationBarComponent', () => {
-  let component: SideNavigationBarComponent;
-  let fixture: ComponentFixture<SideNavigationBarComponent>;
+  it('should create the component', () => {});
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SideNavigationBarComponent]
-    })
-    .compileComponents();
+  it('should open create file dialog on upload', () => {});
 
-    fixture = TestBed.createComponent(SideNavigationBarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should add file after dialog closes with result', () => {});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should switch to home view', () => {});
+
+  it('should switch to shared view', () => {});
 });

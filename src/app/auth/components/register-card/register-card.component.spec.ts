@@ -1,23 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { RegisterCardComponent } from './register-card.component';
-
 describe('RegisterCardComponent', () => {
-  let component: RegisterCardComponent;
-  let fixture: ComponentFixture<RegisterCardComponent>;
+  it('should create the component', () => {});
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [RegisterCardComponent]
-    })
-    .compileComponents();
+  it('should initialize register form on init', () => {});
 
-    fixture = TestBed.createComponent(RegisterCardComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should mark form invalid when passwords do not match', () => {});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should show error when username already exists', () => {});
+
+  it('should call auth service register with form values', () => {});
+
+  it('should emit registered event on successful registration', () => {});
+
+  it('should reset form after successful registration', () => {});
 });

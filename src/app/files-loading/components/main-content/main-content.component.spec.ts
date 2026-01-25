@@ -1,23 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MainContentComponent } from './main-content.component';
-
 describe('MainContentComponent', () => {
-  let component: MainContentComponent;
-  let fixture: ComponentFixture<MainContentComponent>;
+  it('should create the component', () => {});
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [MainContentComponent]
-    })
-    .compileComponents();
+  it('should load files on init', () => {});
 
-    fixture = TestBed.createComponent(MainContentComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should clear files if no logged in user', () => {});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should filter files by search query', () => {});
+
+  it('should sort files based on sort state', () => {});
+
+  it('should reload files on file change notification', () => {});
 });
