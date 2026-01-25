@@ -11,6 +11,7 @@ import {OpenedFileFullPreviewComponent} from '../opened-file-full-preview/opened
 import {Router} from '@angular/router';
 import {ShareFileComponent} from '../share-file/share-file.component';
 import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/create-or-update-file-view.component';
+import {FileService} from './file.service';
 
 @Component({
   selector: 'app-file-card',
@@ -36,7 +37,7 @@ export class FileCardComponent implements OnInit {
 
   @Output() delete = new EventEmitter<FileItem>();
 
-  constructor(private dialog: MatDialog, private router: Router, private datePipe: DatePipe) {}
+  constructor(private dialog: MatDialog, private router: Router, private datePipe: DatePipe, private fileService: FileService) {}
 
   ngOnInit(): void {}
 
@@ -50,22 +51,17 @@ export class FileCardComponent implements OnInit {
   }
 
   onUpdate(file: FileItem): void {
-    const storedUser = localStorage.getItem('loggedInUser');
-    const user = storedUser ? JSON.parse(storedUser) : null;
+    const user = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
+    const dialogRef = this.dialog.open(CreateOrUpdateFileViewComponent, {
+      data: { file, mode: 'edit' }
+    });
 
-    this.dialog.open(CreateOrUpdateFileViewComponent, {
-      data: {
-        mode: 'edit',
-        file: {
-          ...file,
-          updateUser: user?.username ?? ''
-        }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        result.updateUser = user.username;
+        result.updateDate = new Date().toISOString();
+        this.fileService.updateFile(result);
       }
-    }).afterClosed().subscribe(updatedFile => {
-      if (!updatedFile) return;
-
-      console.log('Updated file:', updatedFile);
-      // persist changes here
     });
   }
 

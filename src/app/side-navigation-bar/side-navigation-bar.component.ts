@@ -4,6 +4,8 @@ import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/create-or-update-file-view.component';
+import {FileItem} from '../file-card/models/file-item.model';
+import {FileService} from '../file-card/file.service';
 
 @Component({
   selector: 'app-side-navigation-bar',
@@ -19,33 +21,29 @@ import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/cre
   styleUrl: './side-navigation-bar.component.css'
 })
 export class SideNavigationBarComponent {
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private fileService: FileService) {
   }
 
   onUpload(): void {
-    const storedUser = localStorage.getItem('loggedInUser');
-    const user = storedUser ? JSON.parse(storedUser) : null;
+    const user = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
+    const newFile: FileItem = {
+      name: '',
+      extension: '',
+      content: '',
+      size: 0,
+      url: '',
+      createDate: new Date().toISOString(),
+      updateDate: '',
+      createUser: user.username,
+      updateUser: ''
+    };
 
-    this.dialog.open(CreateOrUpdateFileViewComponent, {
-      data: {
-        mode: 'create',
-        file: {
-          name: '',
-          extension: '',
-          content: '',
-          size: 0,
-          url: '',
-          createDate: new Date().toISOString(),
-          updateDate: '',
-          createUser: user?.username ?? '',
-          updateUser: ''
-        }
-      }
-    }).afterClosed().subscribe(newFile => {
-      if (!newFile) return;
+    const dialogRef = this.dialog.open(CreateOrUpdateFileViewComponent, {
+      data: { file: newFile, mode: 'create' }
+    });
 
-      console.log('Created file:', newFile);
-      // persist new file here
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) this.fileService.addFile(result);
     });
   }
 }
