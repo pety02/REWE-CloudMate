@@ -7,7 +7,10 @@ import {MatButton} from '@angular/material/button';
 import {NgIf} from '@angular/common';
 
 /**
+ * RegisterCardComponent
  *
+ * Handles user registration with form validation.
+ * Emits an event when registration succeeds.
  */
 @Component({
   selector: 'app-register-card',
@@ -31,14 +34,19 @@ import {NgIf} from '@angular/common';
   ]
 })
 export class RegisterCardComponent implements OnInit {
+
+  /** Reactive form for user registration */
   registerForm!: FormGroup;
+
+  /** Event emitted after successful registration */
   @Output() registered = new EventEmitter<void>();
+
+  /** Error message displayed to the user */
   errorMessage: string | null = null;
 
   /**
-   *
-   * @param fb
-   * @param auth
+   * @param fb Angular FormBuilder for reactive forms
+   * @param auth Authentication service
    */
   constructor(
     private fb: FormBuilder,
@@ -46,7 +54,7 @@ export class RegisterCardComponent implements OnInit {
   ) {}
 
   /**
-   *
+   * Initializes the registration form with validation rules.
    */
   ngOnInit(): void {
     this.registerForm = this.fb.group(
@@ -85,9 +93,10 @@ export class RegisterCardComponent implements OnInit {
   }
 
   /**
+   * Custom validator to ensure password and confirmation match.
    *
-   * @param form
-   * @private
+   * @param form Registration form group
+   * @returns Validation error or null if valid
    */
   private passwordsMatchValidator(form: FormGroup) {
     const password = form.get('password')?.value;
@@ -96,7 +105,9 @@ export class RegisterCardComponent implements OnInit {
   }
 
   /**
-   *
+   * Attempts to register a new user.
+   * Displays validation or duplication errors when necessary.
+   * Emits an event on successful registration.
    */
   register(): void {
     this.errorMessage = null;
