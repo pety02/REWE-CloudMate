@@ -27,7 +27,7 @@ describe('ShareFileComponent', () => {
     localStorage.setItem(
       'files',
       JSON.stringify({
-        users: [{ username: 'john' }],
+        users: [{username: 'john'}],
         userFiles: {}
       })
     );
@@ -35,10 +35,14 @@ describe('ShareFileComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ShareFileComponent, ReactiveFormsModule],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: mockFile },
-        { provide: MatDialogRef, useValue: dialogRefSpy }
+        {provide: MAT_DIALOG_DATA, useValue: mockFile},
+        {provide: MatDialogRef, useValue: dialogRefSpy}
       ]
     }).compileComponents();
+
+    fixture = TestBed.createComponent(ShareFileComponent);
+    component = fixture.componentInstance;
+  });
 
   it('should update stored data when sharing file', () => {});
 

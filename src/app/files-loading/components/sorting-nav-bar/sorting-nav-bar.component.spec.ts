@@ -13,9 +13,13 @@ describe('SortingNavBarComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SortingNavBarComponent],
       providers: [
-        { provide: FileSortService, useValue: mockFileSortService }
+        {provide: FileSortService, useValue: mockFileSortService}
       ],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(SortingNavBarComponent);
+    component = fixture.componentInstance;
+  });
 
   it('should reset direction when changing sort key', () => {});
 
