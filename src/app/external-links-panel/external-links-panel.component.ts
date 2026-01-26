@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf, NgIf} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-external-links-panel',
   imports: [
-    NgIf,
-    NgForOf
   ],
   templateUrl: './external-links-panel.component.html',
   styleUrls: [

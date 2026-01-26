@@ -4,7 +4,6 @@ import {AuthService} from '../../../../services/auth.service';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
-import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-register-card',
@@ -19,7 +18,6 @@ import {NgIf} from '@angular/common';
     MatFormField,
     MatCard,
     MatError,
-    NgIf
   ],
   templateUrl: 'register-card.component.html',
   styleUrls: [

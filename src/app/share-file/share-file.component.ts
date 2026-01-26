@@ -11,7 +11,6 @@ import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/inpu
 import {FileItem} from '../../models/file-item.model';
 import {User} from '../../models/user.model';
 import {StoredData} from '../../models/stored-data.model';
-import {NgIf} from '@angular/common';
 import {MatIcon} from '@angular/material/icon';
 
 @Component({
@@ -25,7 +24,6 @@ import {MatIcon} from '@angular/material/icon';
     MatLabel,
     MatButton,
     MatError,
-    NgIf,
     MatCard,
     MatCardHeader,
     MatCardTitle,

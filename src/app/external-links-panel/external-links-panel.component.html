@@ -1,5 +1,9 @@
-<ul *ngIf="externalLinks?.length">
-  <li *ngFor="let link of externalLinks">
-    <a [href]="link" target="_blank">{{ link }}</a>
-  </li>
-</ul>
+@if (externalLinks.length) {
+  <ul>
+    @for (link of externalLinks; track link) {
+      <li>
+        <a [href]="link" target="_blank">{{ link }}</a>
+      </li>
+    }
+  </ul>
+}

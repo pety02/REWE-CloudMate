@@ -1,6 +1,6 @@
 <div class="auth-card-with-avatar">
   <div class="profile-icon">
-    <img src="/profile.ico" alt="Profile circle icon" class="icon" />
+    <img src="/profile.ico" alt="Profile circle icon" class="icon"/>
   </div>
 
   <mat-card class="auth-card mat-elevation-z8" appearance="outlined">
@@ -12,54 +12,64 @@
         <!-- USERNAME -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Username</mat-label>
-          <input matInput formControlName="username" />
+          <input matInput formControlName="username"/>
 
-          <mat-error *ngIf="registerForm.get('username')?.hasError('required')">
-            Username is required
-          </mat-error>
+          @if (registerForm.get('username')?.hasError('required')) {
+            <mat-error>
+              Username is required
+            </mat-error>
+          }
 
-          <mat-error *ngIf="registerForm.get('username')?.hasError('minlength')">
-            Username must be at least 3 characters
-          </mat-error>
+          @if (registerForm.get('username')?.hasError('minlength')) {
+            <mat-error>
+              Username must be at least 3 characters
+            </mat-error>
+          }
         </mat-form-field>
 
         <!-- PASSWORD -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" />
+          <input matInput type="password" formControlName="password"/>
 
-          <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
-            Password is required
-          </mat-error>
+          @if (registerForm.get('password')?.hasError('required')) {
+            <mat-error>
+              Password is required
+            </mat-error>
+          }
 
-          <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">
-            Password must be at least 8 characters
-          </mat-error>
+          @if (registerForm.get('password')?.hasError('minlength')) {
+            <mat-error>
+              Password must be at least 8 characters
+            </mat-error>
+          }
         </mat-form-field>
 
         <!-- CONFIRM PASSWORD -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Confirm Password</mat-label>
-          <input matInput type="password" formControlName="confirmedPassword" />
+          <input matInput type="password" formControlName="confirmedPassword"/>
 
-          <mat-error *ngIf="registerForm.get('confirmedPassword')?.hasError('required')">
-            Please confirm your password
-          </mat-error>
+          @if (registerForm.get('confirmedPassword')?.hasError('required')) {
+            <mat-error>
+              Please confirm your password
+            </mat-error>
+          }
 
-          <mat-error
-            *ngIf="
-              registerForm.hasError('passwordMismatch') &&
-              registerForm.get('confirmedPassword')?.touched
-            "
-          >
-            Passwords do not match
-          </mat-error>
+          @if (registerForm.hasError('passwordMismatch') &&
+          registerForm.get('confirmedPassword')?.touched) {
+            <mat-error>
+              Passwords do not match
+            </mat-error>
+          }
         </mat-form-field>
 
         <!-- GLOBAL ERROR FROM TS -->
-        <mat-error *ngIf="errorMessage" class="form-error">
-          {{ errorMessage }}
-        </mat-error>
+        @if (errorMessage) {
+          <mat-error class="form-error">
+            {{ errorMessage }}
+          </mat-error>
+        }
 
         <button
           mat-raised-button

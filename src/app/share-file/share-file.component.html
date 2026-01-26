@@ -18,13 +18,17 @@
           formControlName="username"
         />
 
-        <mat-error *ngIf="usernameCtrl.hasError('required')">
+        @if(usernameCtrl.hasError('required')) {
+        <mat-error>
           Username is required
         </mat-error>
+        }
 
-        <mat-error *ngIf="usernameCtrl.hasError('userNotFound')">
+        @if(usernameCtrl.hasError('userNotFound')) {
+        <mat-error>
           User not found
         </mat-error>
+        }
       </mat-form-field>
 
       <div class="actions">

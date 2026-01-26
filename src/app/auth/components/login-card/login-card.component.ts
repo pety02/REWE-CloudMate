@@ -5,7 +5,6 @@ import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
-import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-login-card',
@@ -20,7 +19,6 @@ import {NgIf} from '@angular/common';
     MatButton,
     MatCard,
     MatError,
-    NgIf,
   ],
   templateUrl: 'login-card.component.html',
   styleUrls: [
