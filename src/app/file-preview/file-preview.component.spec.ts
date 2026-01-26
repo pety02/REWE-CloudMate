@@ -1,5 +1,5 @@
-import {FilePreviewComponent} from './file-preview.component';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { FilePreviewComponent } from './file-preview.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 describe('FilePreviewComponent', () => {
   let component: FilePreviewComponent;
@@ -8,20 +8,32 @@ describe('FilePreviewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FilePreviewComponent],
-      providers: [],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FilePreviewComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   afterEach(() => {
     localStorage.clear();
   });
 
-  it('should create the component', () => {});
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
 
-  it('should return file content from localStorage', () => {});
+  it('should return file content from localStorage', () => {
+    localStorage.setItem('currentFileContent', 'data');
 
-  it('should return empty string when no content exists', () => {});
+    const result = component.updateContent();
+
+    expect(result).toBe('data');
+  });
+
+  it('should return empty string when no content exists', () => {
+    const result = component.updateContent();
+
+    expect(result).toBe('');
+  });
 });
