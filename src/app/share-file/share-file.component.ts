@@ -1,21 +1,20 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
-import {
-  MatCard,
-  MatCardContent, MatCardHeader, MatCardTitle,
-} from '@angular/material/card';
-import {MatButton, MatIconButton} from '@angular/material/button';
-import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
-import {FileItem} from '../../models/file-item.model';
-import {User} from '../../models/user.model';
-import {StoredData} from '../../models/stored-data.model';
-import {NgIf} from '@angular/common';
-import {MatIcon} from '@angular/material/icon';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { FileItem } from '../../models/file-item.model';
+import { User } from '../../models/user.model';
+import { StoredData } from '../../models/stored-data.model';
+import { NgIf } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 /**
+ * ShareFileComponent
  *
+ * Dialog component that allows sharing a file with another user.
+ * Validates that the user exists in stored data before updating file access.
  */
 @Component({
   selector: 'app-share-file',
@@ -42,13 +41,13 @@ import {MatIcon} from '@angular/material/icon';
   ]
 })
 export class ShareFileComponent {
+  /** Form group for username input */
   shareForm: FormGroup;
 
   /**
-   *
-   * @param fb
-   * @param dialogRef
-   * @param item
+   * @param fb Angular FormBuilder for reactive forms
+   * @param dialogRef Reference to the dialog instance
+   * @param item FileItem to share
    */
   constructor(
     private fb: FormBuilder,
@@ -60,15 +59,14 @@ export class ShareFileComponent {
     });
   }
 
-  /**
-   *
-   */
+  /** Shortcut to access the username form control */
   get usernameCtrl() {
     return this.shareForm.get('username')!;
   }
 
   /**
-   *
+   * Submits the share form.
+   * Validates that the target user exists and updates stored data accordingly.
    */
   onSubmit(): void {
     if (this.shareForm.invalid) return;
@@ -92,9 +90,10 @@ export class ShareFileComponent {
   }
 
   /**
+   * Adds the file to the specified user's shared files in localStorage.
    *
-   * @param data
-   * @param username
+   * @param data StoredData object
+   * @param username Target username
    * @private
    */
   private shareFileWithUser(data: StoredData, username: string): void {
@@ -112,7 +111,9 @@ export class ShareFileComponent {
   }
 
   /**
+   * Retrieves stored file and user data from localStorage.
    *
+   * @returns StoredData object
    * @private
    */
   private getStoredData(): StoredData {
@@ -126,7 +127,7 @@ export class ShareFileComponent {
   }
 
   /**
-   *
+   * Closes the share dialog without sharing.
    */
   closeFile(): void {
     this.dialogRef.close();
