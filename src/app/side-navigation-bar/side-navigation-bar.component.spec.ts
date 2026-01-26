@@ -1,11 +1,47 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SideNavigationBarComponent } from './side-navigation-bar.component';
+import { MatDialog } from '@angular/material/dialog';
+import { FileService } from '../../services/file.service';
+
 describe('SideNavigationBarComponent', () => {
-  it('should create the component', () => {});
+  let component: SideNavigationBarComponent;
+  let fixture: ComponentFixture<SideNavigationBarComponent>;
+  let dialogSpy: jasmine.SpyObj<MatDialog>;
+  let fileServiceSpy: jasmine.SpyObj<FileService>;
 
-  it('should open create file dialog on upload', () => {});
+  beforeEach(async () => {
+    dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    fileServiceSpy = jasmine.createSpyObj('FileService', [
+      'addFile',
+      'notifyFileChanged',
+      'setViewMode'
+    ]);
 
-  it('should add file after dialog closes with result', () => {});
+    await TestBed.configureTestingModule({
+      imports: [SideNavigationBarComponent],
+      providers: [
+        { provide: MatDialog, useValue: dialogSpy },
+        { provide: FileService, useValue: fileServiceSpy }
+      ]
+    }).compileComponents();
 
-  it('should switch to home view', () => {});
+    fixture = TestBed.createComponent(SideNavigationBarComponent);
+    component = fixture.componentInstance;
+  });
 
-  it('should switch to shared view', () => {});
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should switch to home view', () => {
+    component.onHome();
+
+    expect(fileServiceSpy.setViewMode).toHaveBeenCalledWith('home');
+  });
+
+  it('should switch to shared view', () => {
+    component.onShared();
+
+    expect(fileServiceSpy.setViewMode).toHaveBeenCalledWith('shared');
+  });
 });
