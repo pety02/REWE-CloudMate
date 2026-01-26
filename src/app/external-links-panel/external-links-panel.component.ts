@@ -3,7 +3,10 @@ import {NgForOf, NgIf} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 
 /**
+ * ExternalLinksPanelComponent
  *
+ * Loads a list of external links from a JSON file and displays them.
+ * Handles errors gracefully by falling back to an empty array.
  */
 @Component({
   selector: 'app-external-links-panel',
@@ -18,17 +21,19 @@ import {HttpClient} from '@angular/common/http';
   ]
 })
 export class ExternalLinksPanelComponent implements OnInit {
+
+  /** Array of external links loaded from server */
   externalLinks: string[] = [];
 
   /**
-   *
-   * @param http
+   * @param http Angular HttpClient for loading JSON data
    */
   constructor(private http: HttpClient) {
   }
 
   /**
-   *
+   * Lifecycle hook: Fetches external links JSON on component initialization.
+   * Logs success or error to the console.
    */
   ngOnInit(): void {
     this.http.get<string[]>('/external-links.json').subscribe({
