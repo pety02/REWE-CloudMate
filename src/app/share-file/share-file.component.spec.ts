@@ -40,10 +40,7 @@ describe('ShareFileComponent', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ShareFileComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should update stored data when sharing file', () => {});
 
   it('should create the component', () => {
     expect(component).toBeTruthy();

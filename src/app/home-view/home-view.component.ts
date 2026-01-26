@@ -7,6 +7,9 @@ import { FilePreviewComponent } from '../file-preview/file-preview.component';
 import { MainContentComponent } from '../files-loading/components/main-content/main-content.component';
 import { SortingNavBarComponent } from '../files-loading/components/sorting-nav-bar/sorting-nav-bar.component';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-home-view',
   standalone: true,

@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-external-links-panel',
   imports: [
@@ -17,10 +20,16 @@ import {HttpClient} from '@angular/common/http';
 export class ExternalLinksPanelComponent implements OnInit {
   externalLinks: string[] = [];
 
+  /**
+   *
+   * @param http
+   */
   constructor(private http: HttpClient) {
-
   }
 
+  /**
+   *
+   */
   ngOnInit(): void {
     this.http.get<string[]>('/external-links.json').subscribe({
       next: (links: string[]) => {

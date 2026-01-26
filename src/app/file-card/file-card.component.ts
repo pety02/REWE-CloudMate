@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {FileItem} from '../../models/file-item.model';
@@ -8,11 +8,13 @@ import {MatTooltip} from '@angular/material/tooltip';
 import {DatePipe} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {OpenedFileFullPreviewComponent} from '../opened-file-full-preview/opened-file-full-preview.component';
-import {Router} from '@angular/router';
 import {ShareFileComponent} from '../share-file/share-file.component';
 import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/create-or-update-file-view.component';
 import {FileService} from '../../services/file.service';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-file-card',
   standalone: true,
@@ -32,24 +34,39 @@ import {FileService} from '../../services/file.service';
   templateUrl: './file-card.component.html',
   styleUrl: './file-card.component.css'
 })
-export class FileCardComponent implements OnInit {
+export class FileCardComponent {
   @Input() file!: FileItem;
-
   @Output() delete = new EventEmitter<FileItem>();
 
+  /**
+   *
+   * @param dialog
+   * @param datePipe
+   * @param fileService
+   */
   constructor(private dialog: MatDialog, private datePipe: DatePipe, private fileService: FileService) {}
 
-  ngOnInit(): void {}
-
+  /**
+   *
+   * @param ext
+   */
   isImage(ext: string): boolean {
     return ['png', 'jpg', 'jpeg', 'svg', 'ico'].includes(ext.toLowerCase());
   }
 
+  /**
+   *
+   * @param file
+   */
   onPreview(file: FileItem): void {
     localStorage.setItem('currentFileContent', file.content || '');
     console.log('Preview', file.content);
   }
 
+  /**
+   *
+   * @param file
+   */
   onUpdate(file: FileItem): void {
     const user = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
     const dialogRef = this.dialog.open(CreateOrUpdateFileViewComponent, {
@@ -66,12 +83,20 @@ export class FileCardComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   * @param file
+   */
   onDelete(file: FileItem): void {
     this.fileService.deleteFile(file);
     this.fileService.notifyFileChanged();
     this.delete.emit(file);
   }
 
+  /**
+   *
+   * @param file
+   */
   onShare(file: FileItem): void {
     localStorage.setItem('sharedFile', JSON.stringify(file));
 
@@ -84,6 +109,10 @@ export class FileCardComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   * @param file
+   */
   openFile(file: FileItem): void {
     localStorage.setItem('openedFile', JSON.stringify(file));
 
@@ -96,6 +125,9 @@ export class FileCardComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   */
   get tooltipText(): string {
     const format = (d: any) => {
       if (!d) return 'N/A';

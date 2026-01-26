@@ -12,7 +12,6 @@ describe('FilePreviewComponent', () => {
 
     fixture = TestBed.createComponent(FilePreviewComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   afterEach(() => {

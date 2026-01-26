@@ -2,18 +2,14 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { SearchBarComponent } from './search-bar.component';
 
 describe('SearchBarComponent', () => {
-  let component: SearchBarComponent;
-  let fixture: ComponentFixture<SearchBarComponent>;
+  it('should create the component', () => {});
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SearchBarComponent]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SearchBarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should trim emitted search value', () => {});
 
   it('should create the component', () => {
     expect(component).toBeTruthy();

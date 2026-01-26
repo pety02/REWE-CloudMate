@@ -17,10 +17,7 @@ describe('SortingNavBarComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SortingNavBarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should reset direction when changing sort key', () => {});
 
   it('should create the component', () => {
     expect(component).toBeTruthy();

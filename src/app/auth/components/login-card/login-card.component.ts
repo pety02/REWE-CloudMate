@@ -7,6 +7,9 @@ import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
 import {NgIf} from '@angular/common';
 
+/**
+ *
+ */
 @Component({
   selector: 'app-login-card',
   standalone: true,
@@ -32,12 +35,21 @@ export class LoginCardComponent implements OnInit {
   loginForm!: FormGroup;
   errorMessage: string | null = null;
 
+  /**
+   *
+   * @param fb
+   * @param auth
+   * @param router
+   */
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router
   ) {}
 
+  /**
+   *
+   */
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: [
@@ -63,6 +75,9 @@ export class LoginCardComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   */
   login(): void {
     this.errorMessage = null;
 
