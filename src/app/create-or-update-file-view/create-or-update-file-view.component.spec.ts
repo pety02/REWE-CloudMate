@@ -48,17 +48,28 @@ describe('CreateOrUpdateFileViewComponent', () => {
     localStorage.clear();
   });
 
-  it('should create the component', () => {});
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
 
-  it('should initialize form on init', () => {});
+  it('should initialize form on init', () => {
+    expect(component.fileForm).toBeDefined();
+  });
 
-  it('should detect edit mode correctly', () => {});
+  it('should patch form values in edit mode', () => {
+    component.data.mode = 'edit';
+    component.ngOnInit();
+    expect(component.fileForm.value.name).toBe(mockFileItem.name);
+  });
 
-  it('should patch form values in edit mode', () => {});
+  it('should close dialog with file data on submit', () => {
+    component.fileForm.patchValue({ name: 'test' });
+    component.onSubmit();
+    expect(mockDialogRef.close).toHaveBeenCalled();
+  });
 
-  it('should update form when file is selected', () => {});
-
-  it('should close dialog with file data on submit', () => {});
-
-  it('should close dialog without data on cancel', () => {});
+  it('should close dialog without data on cancel', () => {
+    component.onCancel();
+    expect(mockDialogRef.close).toHaveBeenCalledWith();
+  });
 });
