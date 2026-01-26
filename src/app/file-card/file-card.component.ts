@@ -13,7 +13,10 @@ import {CreateOrUpdateFileViewComponent} from '../create-or-update-file-view/cre
 import {FileService} from '../../services/file.service';
 
 /**
+ * FileCardComponent
  *
+ * Displays a single file with preview, update, delete, share, and open functionality.
+ * Handles emitting events and dialog interactions for file management.
  */
 @Component({
   selector: 'app-file-card',
@@ -35,28 +38,34 @@ import {FileService} from '../../services/file.service';
   styleUrl: './file-card.component.css'
 })
 export class FileCardComponent {
+
+  /** File data to display */
   @Input() file!: FileItem;
+
+  /** Event emitted when the file is deleted */
   @Output() delete = new EventEmitter<FileItem>();
 
   /**
-   *
-   * @param dialog
-   * @param datePipe
-   * @param fileService
+   * @param dialog Angular Material dialog service
+   * @param datePipe Angular DatePipe for formatting dates
+   * @param fileService Service for CRUD operations on files
    */
   constructor(private dialog: MatDialog, private datePipe: DatePipe, private fileService: FileService) {}
 
   /**
+   * Determines if a file extension corresponds to an image.
    *
-   * @param ext
+   * @param ext File extension
+   * @returns true if the file is an image
    */
   isImage(ext: string): boolean {
     return ['png', 'jpg', 'jpeg', 'svg', 'ico'].includes(ext.toLowerCase());
   }
 
   /**
+   * Previews the file by storing its content in localStorage.
    *
-   * @param file
+   * @param file FileItem to preview
    */
   onPreview(file: FileItem): void {
     localStorage.setItem('currentFileContent', file.content || '');
@@ -64,8 +73,9 @@ export class FileCardComponent {
   }
 
   /**
+   * Opens a dialog to update the file metadata or content.
    *
-   * @param file
+   * @param file FileItem to edit
    */
   onUpdate(file: FileItem): void {
     const user = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
@@ -84,8 +94,9 @@ export class FileCardComponent {
   }
 
   /**
+   * Deletes a file and emits a delete event.
    *
-   * @param file
+   * @param file FileItem to delete
    */
   onDelete(file: FileItem): void {
     this.fileService.deleteFile(file);
@@ -94,8 +105,9 @@ export class FileCardComponent {
   }
 
   /**
+   * Opens a dialog to share the file.
    *
-   * @param file
+   * @param file FileItem to share
    */
   onShare(file: FileItem): void {
     localStorage.setItem('sharedFile', JSON.stringify(file));
@@ -110,8 +122,9 @@ export class FileCardComponent {
   }
 
   /**
+   * Opens a full preview dialog for the file.
    *
-   * @param file
+   * @param file FileItem to open
    */
   openFile(file: FileItem): void {
     localStorage.setItem('openedFile', JSON.stringify(file));
@@ -126,7 +139,7 @@ export class FileCardComponent {
   }
 
   /**
-   *
+   * Tooltip text for file card showing formatted creation and update dates.
    */
   get tooltipText(): string {
     const format = (d: any) => {
