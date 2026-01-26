@@ -1,21 +1,110 @@
+import { TestBed } from '@angular/core/testing';
+import { FileService } from './file.service';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { StoredData } from '../models/stored-data.model';
+
 describe('FileService', () => {
-  it('should be created', () => {});
+  let service: FileService;
+  let httpMock: HttpTestingController;
 
-  it('should initialize files from mock data', () => {});
+  const mockData: StoredData = {
+    users: [],
+    files: [
+      {
+        name: 'file',
+        extension: 'txt',
+        content: '',
+        size: 1,
+        url: '',
+        createDate: '',
+        updateDate: '',
+        createUser: 'john',
+        updateUser: ''
+      }
+    ],
+    userFiles: {
+      john: ['file.txt']
+    },
+    sharedFiles: {
+      jane: ['file.txt']
+    }
+  };
 
-  it('should return user files', () => {});
+  beforeEach(() => {
+    localStorage.clear();
 
-  it('should return shared files', () => {});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [FileService]
+    });
 
-  it('should add new file', () => {});
+    service = TestBed.inject(FileService);
+    httpMock = TestBed.inject(HttpTestingController);
 
-  it('should update existing file', () => {});
+    const req = httpMock.expectOne('/mock-files.json');
+    req.flush(mockData);
+  });
 
-  it('should delete file', () => {});
+  afterEach(() => {
+    httpMock.verify();
+  });
 
-  it('should notify file changes', () => {});
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
 
-  it('should set and get view mode', () => {});
+  it('should return empty list for user files', () => {
+    const files = service.getFiles('john');
+    expect(files.length).toBe(0);
+  });
 
-  it('should set and get search query', () => {});
+  it('should return empty list for shared files', () => {
+    const files = service.getSharedFiles('jane');
+    expect(files.length).toBe(0);
+  });
+
+  it('should add new file', () => {
+    service.addFile({
+      name: 'new',
+      extension: 'txt',
+      content: '',
+      size: 1,
+      url: '',
+      createDate: '',
+      updateDate: '',
+      createUser: 'john',
+      updateUser: ''
+    });
+
+    const stored = service.getStoredData();
+    expect(stored.files.length).toBe(1);
+  });
+
+  it('should delete file', () => {
+    service.deleteFile({
+      name: 'file',
+      extension: 'txt'
+    } as any);
+
+    const stored = service.getStoredData();
+    expect(stored.files.length).toBe(0);
+  });
+
+  it('should notify file changes', done => {
+    service.fileChanged$.subscribe(() => {
+      done();
+    });
+
+    service.notifyFileChanged();
+  });
+
+  it('should set and get view mode', () => {
+    service.setViewMode('shared');
+    expect(service.getCurrentViewMode()).toBe('shared');
+  });
+
+  it('should set and get search query', () => {
+    service.setSearchQuery('TEST');
+    expect(service.getCurrentSearchQuery()).toBe('test');
+  });
 });
