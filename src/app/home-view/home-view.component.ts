@@ -8,7 +8,10 @@ import { MainContentComponent } from '../files-loading/components/main-content/m
 import { SortingNavBarComponent } from '../files-loading/components/sorting-nav-bar/sorting-nav-bar.component';
 
 /**
+ * HomeViewComponent
  *
+ * The main container view for the home page of the application.
+ * Integrates toolbar, navigation, external links, sorting, file preview, and main content.
  */
 @Component({
   selector: 'app-home-view',
@@ -25,5 +28,4 @@ import { SortingNavBarComponent } from '../files-loading/components/sorting-nav-
   templateUrl: './home-view.component.html',
   styleUrls: ['./home-view.component.css']
 })
-export class HomeViewComponent {
-}
+export class HomeViewComponent {}
