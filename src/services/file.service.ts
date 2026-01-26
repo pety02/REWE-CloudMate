@@ -1,11 +1,17 @@
-import {FileItem} from '../models/file-item.model';
-import {StoredData} from '../models/stored-data.model';
-import {BehaviorSubject, firstValueFrom, Subject} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { FileItem } from '../models/file-item.model';
+import { StoredData } from '../models/stored-data.model';
+import { BehaviorSubject, Subject, firstValueFrom } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 /**
+ * FileService
  *
+ * Manages all file-related operations:
+ * - CRUD operations for files
+ * - User-specific and shared file access
+ * - Search query management
+ * - View mode management ('home' or 'shared')
  */
 @Injectable({
   providedIn: 'root'
@@ -18,168 +24,113 @@ export class FileService {
   private viewMode$ = new BehaviorSubject<'home' | 'shared'>('home');
   viewModeObservable$ = this.viewMode$.asObservable();
 
-  /**
-   *
-   */
-  notifyFileChanged() {
-    this.fileChanged.next();
-  }
-
-  /**
-   *
-   * @param mode
-   */
-  setViewMode(mode: 'home' | 'shared') {
-    this.viewMode$.next(mode);
-  }
-
-  /**
-   *
-   */
-  getCurrentViewMode(): 'home' | 'shared' {
-    return this.viewMode$.getValue();
-  }
-
-  /**
-   *
-   * @param http
-   */
   constructor(private http: HttpClient) {
     this.initializeFiles().then(f => f);
   }
 
-  /**
-   *
-   * @private
-   */
+  /** Notify subscribers that a file has changed (added, updated, deleted). */
+  notifyFileChanged() {
+    this.fileChanged.next();
+  }
+
+  /** Sets the current view mode: 'home' or 'shared'. */
+  setViewMode(mode: 'home' | 'shared') {
+    this.viewMode$.next(mode);
+  }
+
+  /** Returns the current view mode. */
+  getCurrentViewMode(): 'home' | 'shared' {
+    return this.viewMode$.getValue();
+  }
+
+  /** Loads initial files from mock JSON into localStorage. */
   private async initializeFiles(): Promise<void> {
     const mockUsers = await firstValueFrom(
       this.http.get<StoredData>('/mock-files.json')
     );
-    localStorage.setItem("storedData", JSON.stringify(mockUsers));
+    localStorage.setItem('storedData', JSON.stringify(mockUsers));
   }
 
-  /**
-   *
-   * @param query
-   */
+  /** Sets the current search query (lowercased). */
   setSearchQuery(query: string): void {
     this.searchQuery$.next(query.toLowerCase());
   }
 
-  /**
-   *
-   */
+  /** Returns the search query as an observable. */
   getSearchQuery() {
     return this.searchQuery$.asObservable();
   }
 
-  /**
-   *
-   */
+  /** Returns the current search query value. */
   getCurrentSearchQuery(): string {
     return this.searchQuery$.value;
   }
 
-  /**
-   *
-   */
+  /** Returns all stored data (users, files, userFiles map). */
   getStoredData(): StoredData {
     const stored = localStorage.getItem('storedData');
     return stored ? JSON.parse(stored) : { users: [], files: [], userFiles: {} };
   }
 
-  /**
-   *
-   * @param data
-   */
+  /** Persists the stored data object to localStorage. */
   saveStoredData(data: StoredData): void {
     localStorage.setItem('storedData', JSON.stringify(data));
   }
 
-  /**
-   *
-   * @param username
-   */
+  /** Returns all files belonging to a specific user. */
   getFiles(username: string): FileItem[] {
     const data = this.getStoredData();
     const fileKeys = data.userFiles[username] || [];
     return data.files.filter(f => fileKeys.includes(`${f.name}.${f.extension}`));
   }
 
-  /**
-   *
-   * @param username
-   */
+  /** Returns all shared files accessible to a specific user. */
   getSharedFiles(username: string): FileItem[] {
     const data = this.getStoredData();
     const sharedKeys = data.sharedFiles?.[username] || [];
     return data.files.filter(f => sharedKeys.includes(`${f.name}.${f.extension}`));
   }
 
-  /**
-   *
-   * @param newFile
-   */
+  /** Adds a new file for a user and updates localStorage. */
   addFile(newFile: FileItem) {
     const data = this.getStoredData();
-
-    // Add file to files array
     data.files.push(newFile);
 
-    // Add to userFiles map
     const fileKey = `${newFile.name}.${newFile.extension}`;
-    if (!data.userFiles[newFile.createUser]) {
-      data.userFiles[newFile.createUser] = [];
-    }
+    if (!data.userFiles[newFile.createUser]) data.userFiles[newFile.createUser] = [];
     data.userFiles[newFile.createUser].push(fileKey);
 
     this.saveStoredData(data);
   }
 
-  /**
-   *
-   * @param updatedFile
-   */
+  /** Updates an existing file and its references in userFiles map. */
   updateFile(updatedFile: FileItem) {
     const data = this.getStoredData();
-    const fileKeyOld = `${updatedFile.name}.${updatedFile.extension}`;
-
     const index = data.files.findIndex(
       f => f.name === updatedFile.name && f.extension === updatedFile.extension
     );
-
-    if (index === -1) {
-      console.error('File not found:', updatedFile);
-      return;
-    }
+    if (index === -1) return;
 
     data.files[index] = updatedFile;
 
-    // Update userFiles map
     Object.keys(data.userFiles).forEach(username => {
-      data.userFiles[username] = data.userFiles[username].filter(f => f !== fileKeyOld);
+      data.userFiles[username] = data.userFiles[username].filter(
+        f => f !== `${updatedFile.name}.${updatedFile.extension}`
+      );
     });
 
-    const newKey = `${updatedFile.name}.${updatedFile.extension}`;
     if (!data.userFiles[updatedFile.createUser]) data.userFiles[updatedFile.createUser] = [];
-    data.userFiles[updatedFile.createUser].push(newKey);
+    data.userFiles[updatedFile.createUser].push(`${updatedFile.name}.${updatedFile.extension}`);
 
     this.saveStoredData(data);
   }
 
-  /**
-   *
-   * @param file
-   */
+  /** Deletes a file and removes its references from userFiles. */
   deleteFile(file: FileItem) {
     const data = this.getStoredData();
     const fileKey = `${file.name}.${file.extension}`;
-
-    // Remove from files array
     data.files = data.files.filter(f => !(f.name === file.name && f.extension === file.extension));
 
-    // Remove from userFiles map
     Object.keys(data.userFiles).forEach(username => {
       data.userFiles[username] = data.userFiles[username].filter(f => f !== fileKey);
     });

@@ -8,7 +8,10 @@ import {Router} from '@angular/router';
 import {NgIf} from '@angular/common';
 
 /**
+ * LoginCardComponent
  *
+ * Handles user login using a reactive form with validation.
+ * Displays error messages for invalid input or failed authentication.
  */
 @Component({
   selector: 'app-login-card',
@@ -32,14 +35,17 @@ import {NgIf} from '@angular/common';
   ]
 })
 export class LoginCardComponent implements OnInit {
+
+  /** Reactive form for login credentials */
   loginForm!: FormGroup;
+
+  /** Error message displayed to the user */
   errorMessage: string | null = null;
 
   /**
-   *
-   * @param fb
-   * @param auth
-   * @param router
+   * @param fb Angular FormBuilder for reactive forms
+   * @param auth Authentication service
+   * @param router Angular Router for navigation
    */
   constructor(
     private fb: FormBuilder,
@@ -48,7 +54,7 @@ export class LoginCardComponent implements OnInit {
   ) {}
 
   /**
-   *
+   * Initializes the login form with validation rules.
    */
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -76,7 +82,9 @@ export class LoginCardComponent implements OnInit {
   }
 
   /**
-   *
+   * Attempts to authenticate the user.
+   * Displays validation or authentication errors when necessary.
+   * On success, stores the logged-in user and navigates to /home.
    */
   login(): void {
     this.errorMessage = null;

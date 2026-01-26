@@ -3,10 +3,19 @@ import { FileCardComponent } from '../../../file-card/file-card.component';
 import { FileItem } from '../../../../models/file-item.model';
 import { FileService } from '../../../../services/file.service';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
-import {FileSortService} from '../../../../services/file-sort.service';
+import { FileSortService } from '../../../../services/file-sort.service';
 
 /**
+ * MainContentComponent
  *
+ * Displays the main file listing in a grid layout. Handles:
+ * - Loading files for the logged-in user (own or shared)
+ * - Filtering files based on search queries
+ * - Sorting files according to user-selected criteria
+ * - Reacting to changes in view mode, file updates, sorting, and search
+ *
+ * Subscribes to observables from FileService and FileSortService to keep the
+ * displayed files up-to-date.
  */
 @Component({
   selector: 'app-main-content',
@@ -20,12 +29,12 @@ import {FileSortService} from '../../../../services/file-sort.service';
   styleUrls: ['./main-content.component.css']
 })
 export class MainContentComponent implements OnInit {
+  /** Array of files currently displayed in the grid */
   files: FileItem[] = [];
 
   /**
-   *
-   * @param fileService
-   * @param fileSortService
+   * @param fileService Service for managing files and view state
+   * @param fileSortService Service for managing file sorting state
    */
   constructor(
     private fileService: FileService,
@@ -33,7 +42,13 @@ export class MainContentComponent implements OnInit {
   ) {}
 
   /**
-   *
+   * Lifecycle hook: Called on component initialization.
+   * - Loads files initially
+   * - Subscribes to observables for:
+   *   - View mode changes
+   *   - File updates/deletions
+   *   - Sort state changes
+   *   - Search query changes
    */
   ngOnInit(): void {
     this.loadFiles();
@@ -45,7 +60,13 @@ export class MainContentComponent implements OnInit {
   }
 
   /**
+   * Loads and filters files based on:
+   * - Current logged-in user
+   * - View mode (own files or shared files)
+   * - Active search query
+   * - Active sort key and direction
    *
+   * Applies filtering and sorting to update the `files` array for display.
    */
   loadFiles(): void {
     const storedUser = localStorage.getItem('loggedInUser');
@@ -58,11 +79,13 @@ export class MainContentComponent implements OnInit {
     const mode = this.fileService.getCurrentViewMode();
     const query = this.fileService.getCurrentSearchQuery();
 
+    // Select files based on mode: own files vs shared files
     let files =
       mode === 'home'
         ? this.fileService.getFiles(username)
         : this.fileService.getSharedFiles(username);
 
+    // Apply search query filtering if present
     if (query) {
       const q = query.toLowerCase();
       files = files.filter(file =>
@@ -71,6 +94,7 @@ export class MainContentComponent implements OnInit {
       );
     }
 
+    // Apply sorting based on key and direction
     const { key, direction } = this.fileSortService.getSortState();
 
     this.files = [...files].sort((a, b) => {
@@ -103,7 +127,8 @@ export class MainContentComponent implements OnInit {
   }
 
   /**
-   *
+   * Callback triggered when a file is deleted.
+   * Reloads the current file list to reflect the deletion.
    */
   onFileDeleted(): void {
     this.loadFiles();
