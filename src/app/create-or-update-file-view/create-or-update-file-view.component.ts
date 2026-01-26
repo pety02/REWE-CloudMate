@@ -10,7 +10,11 @@ import {MatIcon} from '@angular/material/icon';
 import {NgIf} from '@angular/common';
 
 /**
+ * CreateOrUpdateFileViewComponent
  *
+ * A dialog component used for creating or updating file metadata and content.
+ * Supports selecting a file from the local filesystem, updating its properties,
+ * and submitting the result back to the parent component.
  */
 @Component({
   selector: 'app-create-or-update-file',
@@ -34,15 +38,19 @@ import {NgIf} from '@angular/common';
   styleUrl: './create-or-update-file-view.component.css'
 })
 export class CreateOrUpdateFileViewComponent implements OnInit {
+  /** Reactive form for file data */
   fileForm!: FormGroup;
+
+  /** Name of the file selected in the dialog */
   selectedFileName = '';
+
+  /** Determines if the dialog is in edit mode */
   isEdit = false;
 
   /**
-   *
-   * @param fb
-   * @param dialogRef
-   * @param data
+   * @param fb Angular FormBuilder for reactive forms
+   * @param dialogRef Reference to the dialog instance
+   * @param data Data passed to the dialog (file info and mode)
    */
   constructor(
     private fb: FormBuilder,
@@ -51,7 +59,8 @@ export class CreateOrUpdateFileViewComponent implements OnInit {
   ) {}
 
   /**
-   *
+   * Lifecycle hook that initializes the form.
+   * Sets default values and handles edit mode pre-filling.
    */
   ngOnInit(): void {
     this.isEdit = this.data.mode === 'edit';
@@ -78,8 +87,10 @@ export class CreateOrUpdateFileViewComponent implements OnInit {
   }
 
   /**
+   * Handles file selection from an <input type="file"> element.
+   * Reads file content as Data URL and updates form fields.
    *
-   * @param event
+   * @param event File input change event
    */
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -104,7 +115,8 @@ export class CreateOrUpdateFileViewComponent implements OnInit {
   }
 
   /**
-   *
+   * Submits the form if valid.
+   * Closes the dialog and returns the updated FileItem object.
    */
   onSubmit(): void {
     if (this.fileForm.invalid) return;
@@ -117,6 +129,9 @@ export class CreateOrUpdateFileViewComponent implements OnInit {
     this.dialogRef.close(result);
   }
 
+  /**
+   * Cancels the dialog without saving changes.
+   */
   onCancel(): void {
     this.dialogRef.close();
   }
